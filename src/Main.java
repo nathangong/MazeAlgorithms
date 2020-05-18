@@ -1,25 +1,13 @@
-import java.awt.EventQueue;
-import javax.swing.JFrame;
+import java.awt.*;
 
-public class Main extends JFrame {
-    public Main() {
-        initUI();
-    }
-
-    private void initUI() {
-        add(new Board());
-
-        setSize(Constants.CELLS*Constants.CELL_LENGTH, Constants.CELLS*Constants.CELL_LENGTH);
-
-        setTitle("Maze Generator");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-    }
-
+public class Main {
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
-            Main main = new Main();
-            main.setVisible(true);
+            MazeFrame mazeFrame = new MazeFrame();
+            mazeFrame.setVisible(true);
+
+            MenuFrame menuFrame = new MenuFrame();
+            menuFrame.setVisible(true);
         });
     }
 }

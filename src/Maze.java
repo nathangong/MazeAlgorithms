@@ -1,13 +1,22 @@
 import javax.swing.JPanel;
 import java.awt.*;
 
-public class Board extends JPanel {
-    private Cell[][] maze;
+public class Maze extends JPanel {
+    private static Maze mazeInstance = null;
+
+    private Cell[][] cells;
     private int currI;
     private int currJ;
 
-    public Board() {
+    private Maze() {
         initBoard();
+    }
+
+    public static Maze getInstance() {
+        if (mazeInstance == null) {
+            mazeInstance = new Maze();
+        }
+        return mazeInstance;
     }
 
     private void initBoard() {
@@ -18,10 +27,10 @@ public class Board extends JPanel {
     }
 
     private void initMaze() {
-        maze = new Cell[Constants.CELLS][Constants.CELLS];
+        cells = new Cell[Constants.CELLS][Constants.CELLS];
         for (int i = 0; i < Constants.CELLS; i++) {
             for (int j = 0; j < Constants.CELLS; j++) {
-                maze[i][j] = new Cell(i, j);
+                cells[i][j] = new Cell(i, j);
             }
         }
         currI = 0;
@@ -58,7 +67,7 @@ public class Board extends JPanel {
         g.setColor(Color.black);
         for (int i = 0; i < Constants.CELLS; i++) {
             for (int j = 0; j < Constants.CELLS; j++) {
-                Cell cell = maze[i][j];
+                Cell cell = cells[i][j];
                 if (cell.getWall(Direction.top)) {
                     g.drawLine(j*Constants.CELL_LENGTH, i*Constants.CELL_LENGTH, (j+1)*Constants.CELL_LENGTH, i*Constants.CELL_LENGTH);
                 }
