@@ -6,9 +6,7 @@ public class Menu extends JPanel {
 
     private Menu() {
         JButton generateButton = new JButton("Generate Maze");
-        generateButton.addActionListener((ActionEvent event) -> {
-            System.out.println("Generating maze...");
-        });
+        generateButton.addActionListener((ActionEvent event) -> Maze.getInstance().generate());
         add(generateButton);
     }
 
