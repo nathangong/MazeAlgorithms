@@ -7,6 +7,7 @@ public class MenuFrame extends JFrame {
 
     private void initUI() {
         add(Menu.getInstance());
+        pack();
 
         setTitle("Menu");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

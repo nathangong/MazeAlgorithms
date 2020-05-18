@@ -8,8 +8,10 @@ public class Maze extends JPanel {
     private static Maze mazeInstance = null;
 
     private Cell[][] cells;
+    private Timer timer;
     private int currI;
     private int currJ;
+    private int delay;
 
     private Maze() {
         initBoard();
@@ -22,8 +24,15 @@ public class Maze extends JPanel {
         return mazeInstance;
     }
 
+    public void setDelay(int fps) {
+        delay = 1000/fps;
+        timer.setDelay(delay);
+    }
+
     private void initBoard() {
         initMaze();
+        delay = 1000/Constants.INITIAL_FPS;
+        timer = new Timer(delay, null);
 
         setFocusable(true);
         setPreferredSize(new Dimension(Constants.CELLS*Constants.CELL_LENGTH, Constants.CELLS*Constants.CELL_LENGTH));
@@ -69,8 +78,6 @@ public class Maze extends JPanel {
         Stack<Position> history = new Stack<>();
         stack.add(new Position(currI, currJ, null));
 
-        int delay = 100;
-        Timer timer = new Timer(delay, null);
         timer.addActionListener(evt -> {
             Position pos;
             if (stack.isEmpty()) {
