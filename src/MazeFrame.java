@@ -1,4 +1,5 @@
 import javax.swing.JFrame;
+import java.awt.*;
 
 public class MazeFrame extends JFrame {
     public MazeFrame() {
@@ -8,7 +9,8 @@ public class MazeFrame extends JFrame {
     private void initUI() {
         add(Maze.getInstance());
 
-        setSize(Constants.CELLS*Constants.CELL_LENGTH, Constants.CELLS*Constants.CELL_LENGTH);
+        getContentPane().setPreferredSize(new Dimension(Constants.CELLS*Constants.CELL_LENGTH, Constants.CELLS*Constants.CELL_LENGTH));
+        pack();
 
         setTitle("Maze Generator");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
