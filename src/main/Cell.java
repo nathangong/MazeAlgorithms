@@ -1,3 +1,7 @@
+package main;
+
+import static main.Direction.*;
+
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,14 +15,14 @@ public class Cell {
     public Cell(int i, int j) {
         this.i = i;
         this.j = j;
-        this.color = Color.white;
+        this.color = Color.black;
         this.visited = false;
 
         walls = new HashMap<>();
-        walls.put(Direction.top, true);
-        walls.put(Direction.right, true);
-        walls.put(Direction.bottom, true);
-        walls.put(Direction.left, true);
+        walls.put(TOP, true);
+        walls.put(RIGHT, true);
+        walls.put(BOTTOM, true);
+        walls.put(LEFT, true);
     }
 
     public boolean getWall(Direction direction) {
@@ -39,7 +43,7 @@ public class Cell {
 
     public void visit() {
         visited = true;
-        color = Color.green;
+        color = Color.white;
     }
 
     public boolean getVisited() {

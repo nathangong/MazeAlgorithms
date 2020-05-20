@@ -1,8 +1,13 @@
+package main;
+
+import static main.Direction.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Stack;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Maze extends JPanel {
     private static Maze mazeInstance = null;
@@ -12,6 +17,7 @@ public class Maze extends JPanel {
     private int currI;
     private int currJ;
     private int delay;
+    private boolean inProgress = false;
 
     private Maze() {
         initBoard();
@@ -24,14 +30,14 @@ public class Maze extends JPanel {
         return mazeInstance;
     }
 
-    public void setDelay(int fps) {
-        delay = 1000/fps;
+    public void setDelay(int delay) {
+        this.delay = delay;
         timer.setDelay(delay);
     }
 
     private void initBoard() {
         initMaze();
-        delay = 1000/Constants.INITIAL_FPS;
+        delay = Constants.INITIAL_DELAY;
         timer = new Timer(delay, null);
 
         setFocusable(true);
@@ -52,25 +58,28 @@ public class Maze extends JPanel {
     private void connectCells(Cell c1, Cell c2) {
         int dx = c1.getJ() - c2.getJ();
         if (dx == 1) {
-            c1.removeWall(Direction.left);
-            c2.removeWall(Direction.right);
+            c1.removeWall(LEFT);
+            c2.removeWall(RIGHT);
         } else if (dx == -1) {
-            c1.removeWall(Direction.right);
-            c2.removeWall(Direction.left);
+            c1.removeWall(RIGHT);
+            c2.removeWall(LEFT);
         }
 
         int dy = c1.getI() - c2.getI();
         if (dy == 1) {
-            c1.removeWall(Direction.top);
-            c2.removeWall(Direction.bottom);
+            c1.removeWall(TOP);
+            c2.removeWall(BOTTOM);
         } else if (dy == -1) {
-            c1.removeWall(Direction.bottom);
-            c2.removeWall(Direction.top);
+            c1.removeWall(BOTTOM);
+            c2.removeWall(TOP);
         }
     }
 
     public void generate() {
-        traverse();
+        if (!inProgress) {
+            inProgress = true;
+            traverse();
+        }
     }
 
     private void traverse() {
@@ -78,6 +87,7 @@ public class Maze extends JPanel {
         Stack<Position> history = new Stack<>();
         stack.add(new Position(currI, currJ, null));
 
+        AtomicInteger mod = new AtomicInteger();
         timer.addActionListener(evt -> {
             Position pos;
             if (stack.isEmpty()) {
@@ -85,7 +95,9 @@ public class Maze extends JPanel {
                     pos = history.pop();
                 }
                 else {
+                    repaint();
                     timer.stop();
+                    inProgress = false;
                     return;
                 }
             }
@@ -101,7 +113,14 @@ public class Maze extends JPanel {
             if (pos.getPrevPosition() != null) {
                 connectCells(cells[pos.getI()][pos.getJ()], cells[pos.getPrevPosition().getI()][pos.getPrevPosition().getJ()]);
             }
-            repaint();
+            if (delay == 0) {
+                if (mod.get() % 25 == 0) {
+                    repaint();
+                }
+            }
+            else {
+                repaint();
+            }
 
             List<Cell> neighbors = getNeighbors(pos.getI(), pos.getJ());
 
@@ -110,6 +129,7 @@ public class Maze extends JPanel {
                 history.add(new Position(pos.getI(), pos.getJ(), null));
                 stack.push(new Position(neighbors.get(randomIndex).getI(), neighbors.get(randomIndex).getJ(), pos));
             }
+            mod.incrementAndGet();
         });
         timer.start();
     }
@@ -158,16 +178,16 @@ public class Maze extends JPanel {
                 }
 
                 g.setColor(Color.black);
-                if (cell.getWall(Direction.top)) {
+                if (cell.getWall(TOP)) {
                     g.drawLine(j * Constants.CELL_LENGTH, i * Constants.CELL_LENGTH, (j + 1) * Constants.CELL_LENGTH, i * Constants.CELL_LENGTH);
                 }
-                if (cell.getWall(Direction.bottom)) {
+                if (cell.getWall(BOTTOM)) {
                     g.drawLine(j * Constants.CELL_LENGTH, (i + 1) * Constants.CELL_LENGTH, (j + 1) * Constants.CELL_LENGTH, (i + 1) * Constants.CELL_LENGTH);
                 }
-                if (cell.getWall(Direction.left)) {
+                if (cell.getWall(LEFT)) {
                     g.drawLine(j * Constants.CELL_LENGTH, i * Constants.CELL_LENGTH, j * Constants.CELL_LENGTH, (i + 1) * Constants.CELL_LENGTH);
                 }
-                if (cell.getWall(Direction.right)) {
+                if (cell.getWall(RIGHT)) {
                     g.drawLine((j + 1) * Constants.CELL_LENGTH, i * Constants.CELL_LENGTH, (j + 1) * Constants.CELL_LENGTH, (i + 1) * Constants.CELL_LENGTH);
                 }
             }

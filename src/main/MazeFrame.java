@@ -1,15 +1,17 @@
+package main;
+
 import javax.swing.JFrame;
 
-public class MenuFrame extends JFrame {
-    public MenuFrame() {
+public class MazeFrame extends JFrame {
+    public MazeFrame() {
         initUI();
     }
 
     private void initUI() {
-        add(Menu.getInstance());
+        add(Maze.getInstance());
         pack();
 
-        setTitle("Menu");
+        setTitle("Maze Generator");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
     }
