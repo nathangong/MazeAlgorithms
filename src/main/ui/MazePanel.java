@@ -1,31 +1,31 @@
-package main;
+package main.ui;
 
-import static main.Direction.*;
+import static main.util.Direction.*;
+
+import main.algs.generation.IterativeDFS;
+import main.util.Cell;
+import main.util.Constants;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Stack;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
-public class Maze extends JPanel {
-    private static Maze mazeInstance = null;
+public class MazePanel extends JPanel {
+    private static MazePanel mazeInstance = null;
 
     private Cell[][] cells;
     private Timer timer;
-    private int currI;
-    private int currJ;
     private int delay;
     private boolean inProgress = false;
 
-    private Maze() {
+    private MazePanel() {
         initBoard();
     }
 
-    public static Maze getInstance() {
+    public static MazePanel getInstance() {
         if (mazeInstance == null) {
-            mazeInstance = new Maze();
+            mazeInstance = new MazePanel();
         }
         return mazeInstance;
     }
@@ -51,11 +51,9 @@ public class Maze extends JPanel {
                 cells[i][j] = new Cell(i, j);
             }
         }
-        currI = 0;
-        currJ = 0;
     }
 
-    private void connectCells(Cell c1, Cell c2) {
+    public void connectCells(Cell c1, Cell c2) {
         int dx = c1.getJ() - c2.getJ();
         if (dx == 1) {
             c1.removeWall(LEFT);
@@ -78,63 +76,19 @@ public class Maze extends JPanel {
     public void generate() {
         if (!inProgress) {
             inProgress = true;
-            traverse();
+            IterativeDFS.generate(timer);
         }
     }
 
-    private void traverse() {
-        Stack<Position> stack = new Stack<>();
-        Stack<Position> history = new Stack<>();
-        stack.add(new Position(currI, currJ, null));
-
-        AtomicInteger mod = new AtomicInteger();
-        timer.addActionListener(evt -> {
-            Position pos;
-            if (stack.isEmpty()) {
-                if (!history.isEmpty()) {
-                    pos = history.pop();
-                }
-                else {
-                    repaint();
-                    timer.stop();
-                    inProgress = false;
-                    return;
-                }
-            }
-            else {
-                pos = stack.pop();
-            }
-            if (pos.getI() < 0 || pos.getI() >= cells.length || pos.getJ() < 0 || pos.getJ() >= cells.length) {
-                return;
-            }
-            currI = pos.getI();
-            currJ = pos.getJ();
-            cells[pos.getI()][pos.getJ()].visit();
-            if (pos.getPrevPosition() != null) {
-                connectCells(cells[pos.getI()][pos.getJ()], cells[pos.getPrevPosition().getI()][pos.getPrevPosition().getJ()]);
-            }
-            if (delay == 0) {
-                if (mod.get() % 25 == 0) {
-                    repaint();
-                }
-            }
-            else {
-                repaint();
-            }
-
-            List<Cell> neighbors = getNeighbors(pos.getI(), pos.getJ());
-
-            int randomIndex = (int)(Math.random()*neighbors.size());
-            if (neighbors.size() > 0) {
-                history.add(new Position(pos.getI(), pos.getJ(), null));
-                stack.push(new Position(neighbors.get(randomIndex).getI(), neighbors.get(randomIndex).getJ(), pos));
-            }
-            mod.incrementAndGet();
-        });
-        timer.start();
+    public void setProgress(boolean val) {
+        inProgress = val;
     }
 
-    private List<Cell> getNeighbors(int posI, int posJ) {
+    public Cell[][] getCells() {
+        return cells;
+    }
+
+    public List<Cell> getNeighbors(int posI, int posJ) {
         List<Cell> neighbors = new ArrayList<>();
 
         Cell top = posI-1 < 0 ? null : cells[posI-1][posJ];
@@ -172,11 +126,6 @@ public class Maze extends JPanel {
                 g.setColor(cell.getColor());
                 g.fillRect(j*Constants.CELL_LENGTH, i*Constants.CELL_LENGTH, Constants.CELL_LENGTH, Constants.CELL_LENGTH);
 
-                if (i == currI && j == currJ) {
-                    g.setColor(Color.red);
-                    g.fillRect(j*Constants.CELL_LENGTH, i*Constants.CELL_LENGTH, Constants.CELL_LENGTH, Constants.CELL_LENGTH);
-                }
-
                 g.setColor(Color.black);
                 if (cell.getWall(TOP)) {
                     g.drawLine(j * Constants.CELL_LENGTH, i * Constants.CELL_LENGTH, (j + 1) * Constants.CELL_LENGTH, i * Constants.CELL_LENGTH);
@@ -192,28 +141,5 @@ public class Maze extends JPanel {
                 }
             }
         }
-    }
-}
-
-class Position {
-    private int i, j;
-    private Position prevPosition;
-
-    public Position(int i, int j, Position prevPosition) {
-        this.i = i;
-        this.j = j;
-        this.prevPosition = prevPosition;
-    }
-
-    public int getI() {
-        return i;
-    }
-
-    public int getJ() {
-        return j;
-    }
-
-    public Position getPrevPosition() {
-        return prevPosition;
     }
 }

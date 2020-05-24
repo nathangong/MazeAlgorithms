@@ -1,13 +1,15 @@
-package main;
+package main.ui;
+
+import main.util.Constants;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class Menu extends JPanel {
-    private static Menu menuInstance = null;
+public class MenuPanel extends JPanel {
+    private static MenuPanel menuInstance = null;
 
-    private Menu() {
+    private MenuPanel() {
         setPreferredSize(new Dimension(200, 150));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -23,19 +25,19 @@ public class Menu extends JPanel {
         delaySlider.setMinorTickSpacing(5);
         delaySlider.setPaintTicks(true);
         delaySlider.setPaintLabels(true);
-        delaySlider.addChangeListener(e -> Maze.getInstance().setDelay(delaySlider.getValue()));
+        delaySlider.addChangeListener(e -> MazePanel.getInstance().setDelay(delaySlider.getValue()));
         add(delaySlider);
         add(Box.createRigidArea(new Dimension(0, 10)));
 
         JButton generateButton = new JButton("Generate main.Maze");
         generateButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        generateButton.addActionListener((ActionEvent event) -> Maze.getInstance().generate());
+        generateButton.addActionListener((ActionEvent event) -> MazePanel.getInstance().generate());
         add(generateButton);
     }
 
-    public static Menu getInstance() {
+    public static MenuPanel getInstance() {
         if (menuInstance == null) {
-            menuInstance = new Menu();
+            menuInstance = new MenuPanel();
         }
         return menuInstance;
     }

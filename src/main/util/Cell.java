@@ -1,6 +1,6 @@
-package main;
+package main.util;
 
-import static main.Direction.*;
+import static main.util.Direction.*;
 
 import java.awt.*;
 import java.util.HashMap;

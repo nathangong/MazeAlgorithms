@@ -1,4 +1,4 @@
-package main;
+package main.util;
 
 public class Constants {
     public static final int CELL_LENGTH = 25;

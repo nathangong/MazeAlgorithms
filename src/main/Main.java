@@ -1,5 +1,8 @@
 package main;
 
+import main.ui.MazeFrame;
+import main.ui.MenuFrame;
+
 import java.awt.*;
 
 public class Main {
