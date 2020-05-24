@@ -11,7 +11,7 @@ public class MenuFrame extends JFrame {
         add(MenuPanel.getInstance());
         pack();
 
-        setTitle("main.Menu");
+        setTitle("Menu");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
     }

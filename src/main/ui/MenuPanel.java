@@ -29,10 +29,16 @@ public class MenuPanel extends JPanel {
         add(delaySlider);
         add(Box.createRigidArea(new Dimension(0, 10)));
 
-        JButton generateButton = new JButton("Generate main.Maze");
+        JButton generateButton = new JButton("Generate Maze");
         generateButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         generateButton.addActionListener((ActionEvent event) -> MazePanel.getInstance().generate());
         add(generateButton);
+        add(Box.createRigidArea(new Dimension(0, 10)));
+
+        JButton clearButton = new JButton("Clear Maze");
+        clearButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        clearButton.addActionListener((ActionEvent event) -> MazePanel.getInstance().clear());
+        add(clearButton);
     }
 
     public static MenuPanel getInstance() {

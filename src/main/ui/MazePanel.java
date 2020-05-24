@@ -37,7 +37,6 @@ public class MazePanel extends JPanel {
 
     private void initBoard() {
         initMaze();
-        delay = Constants.INITIAL_DELAY;
         timer = new Timer(delay, null);
 
         setFocusable(true);
@@ -78,6 +77,12 @@ public class MazePanel extends JPanel {
             inProgress = true;
             IterativeDFS.generate(timer);
         }
+    }
+
+    public void clear() {
+        setProgress(false);
+        initBoard();
+        repaint();
     }
 
     public void setProgress(boolean val) {

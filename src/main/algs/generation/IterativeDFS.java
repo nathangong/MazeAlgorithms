@@ -50,7 +50,6 @@ public class IterativeDFS {
             else {
                 maze.repaint();
             }
-
             List<Cell> neighbors = maze.getNeighbors(pos.getI(), pos.getJ());
 
             int randomIndex = (int)(Math.random()*neighbors.size());
