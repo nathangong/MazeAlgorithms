@@ -40,6 +40,12 @@ public class MenuPanel extends JPanel {
         clearButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         clearButton.addActionListener((ActionEvent event) -> MazePanel.getInstance().clear());
         add(clearButton);
+        add(Box.createRigidArea(new Dimension(0, 10)));
+
+        JButton traverseButton = new JButton("Traverse Maze");
+        traverseButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        traverseButton.addActionListener((ActionEvent event) -> MazePanel.getInstance().traverse());
+        add(traverseButton);
     }
 
     public static MenuPanel getInstance() {

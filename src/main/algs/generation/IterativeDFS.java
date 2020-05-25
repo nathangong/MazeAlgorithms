@@ -4,7 +4,7 @@ import main.ui.MazePanel;
 import main.util.Cell;
 import main.util.Constants;
 import main.util.Maze;
-import main.util.TraversalPosition;
+import main.util.GenerationPosition;
 
 import javax.swing.*;
 import java.util.List;
@@ -16,13 +16,13 @@ public class IterativeDFS {
         MazePanel mazePanel = MazePanel.getInstance();
         Maze maze = MazePanel.getInstance().getMaze();
 
-        Stack<TraversalPosition> stack = new Stack<>();
-        Stack<TraversalPosition> history = new Stack<>();
-        stack.add(new TraversalPosition(0, 0, null));
+        Stack<GenerationPosition> stack = new Stack<>();
+        Stack<GenerationPosition> history = new Stack<>();
+        stack.add(new GenerationPosition(0, 0, null));
 
         AtomicInteger mod = new AtomicInteger();
         timer.addActionListener(evt -> {
-            TraversalPosition pos;
+            GenerationPosition pos;
             if (stack.isEmpty()) {
                 if (!history.isEmpty()) {
                     pos = history.pop();
@@ -30,6 +30,7 @@ public class IterativeDFS {
                     mazePanel.repaint();
                     timer.stop();
                     mazePanel.setProgress(false);
+                    mazePanel.setGenerated(true);
                     return;
                 }
             } else {
@@ -53,8 +54,8 @@ public class IterativeDFS {
 
             int randomIndex = (int) (Math.random() * neighbors.size());
             if (neighbors.size() > 0) {
-                history.add(new TraversalPosition(pos.getI(), pos.getJ(), null));
-                stack.push(new TraversalPosition(neighbors.get(randomIndex).getI(), neighbors.get(randomIndex).getJ(), pos));
+                history.add(new GenerationPosition(pos.getI(), pos.getJ(), null));
+                stack.push(new GenerationPosition(neighbors.get(randomIndex).getI(), neighbors.get(randomIndex).getJ(), pos));
             }
             mod.incrementAndGet();
         });

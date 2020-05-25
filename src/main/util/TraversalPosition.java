@@ -3,12 +3,15 @@ package main.util;
 public class TraversalPosition {
     private final int i;
     private final int j;
-    private final TraversalPosition prevPosition;
+    private final TraversalPosition parent;
+    private boolean isSuccessful;
+    private final boolean isLastChild;
 
-    public TraversalPosition(int i, int j, TraversalPosition prevPosition) {
+    public TraversalPosition(int i, int j, TraversalPosition parent, boolean isLastChild) {
         this.i = i;
         this.j = j;
-        this.prevPosition = prevPosition;
+        this.parent = parent;
+        this.isLastChild = isLastChild;
     }
 
     public int getI() {
@@ -19,7 +22,21 @@ public class TraversalPosition {
         return j;
     }
 
-    public TraversalPosition getPrevPosition() {
-        return prevPosition;
+    public void updateSuccess(boolean success) {
+        if (success) {
+            isSuccessful = true;
+        }
+    }
+
+    public boolean isSuccessful() {
+        return isSuccessful;
+    }
+
+    public TraversalPosition getParent() {
+        return parent;
+    }
+
+    public boolean isLastChild() {
+        return isLastChild;
     }
 }

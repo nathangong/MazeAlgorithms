@@ -1,6 +1,7 @@
 package main.ui;
 
 import main.algs.generation.IterativeDFS;
+import main.algs.traversal.DFS;
 import main.util.Cell;
 import main.util.Constants;
 import main.util.Maze;
@@ -16,6 +17,7 @@ public class MazePanel extends JPanel {
     private Maze maze;
     private int delay = Constants.INITIAL_DELAY;
     private boolean inProgress = false;
+    private boolean generated;
     private Timer timer;
 
     private MazePanel() {
@@ -36,16 +38,30 @@ public class MazePanel extends JPanel {
 
     private void initPanel() {
         maze = new Maze();
-        timer = new Timer(delay, null);
+        refreshTimer();
+        generated = false;
 
         setFocusable(true);
         setPreferredSize(new Dimension(Constants.CELLS * Constants.CELL_LENGTH, Constants.CELLS * Constants.CELL_LENGTH));
     }
 
+    private void refreshTimer() {
+        timer = new Timer(delay, null);
+    }
+
     public void generate() {
+        refreshTimer();
         if (!inProgress) {
             inProgress = true;
             IterativeDFS.generate(timer);
+        }
+    }
+
+    public void traverse() {
+        refreshTimer();
+        if (generated && !inProgress) {
+            inProgress = true;
+            DFS.traverse(timer);
         }
     }
 
@@ -57,6 +73,10 @@ public class MazePanel extends JPanel {
 
     public void setProgress(boolean val) {
         inProgress = val;
+    }
+
+    public void setGenerated(boolean val) {
+        generated = val;
     }
 
     public Maze getMaze() {
@@ -89,6 +109,11 @@ public class MazePanel extends JPanel {
                 }
                 if (cell.getWall(RIGHT)) {
                     g.drawLine((j + 1) * Constants.CELL_LENGTH, i * Constants.CELL_LENGTH, (j + 1) * Constants.CELL_LENGTH, (i + 1) * Constants.CELL_LENGTH);
+                }
+
+                g.setColor(Color.red);
+                if (cell.getTraversed()) {
+                    g.fillArc(j * Constants.CELL_LENGTH, i * Constants.CELL_LENGTH, Constants.CELL_LENGTH, Constants.CELL_LENGTH, 0, 360);
                 }
             }
         }

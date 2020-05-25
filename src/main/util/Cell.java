@@ -13,7 +13,7 @@ public class Cell {
     private final int i;
     private final int j;
     private final List<Cell> connectedCells;
-    private boolean visited;
+    private boolean visited, traversed;
     private Color color;
 
     public Cell(int i, int j) {
@@ -58,6 +58,15 @@ public class Cell {
         visited = true;
         color = Color.white;
     }
+
+    public void setTraversed(boolean val) {
+        traversed = val;
+    }
+
+    public boolean getTraversed() {
+        return traversed;
+    }
+
 
     public boolean getVisited() {
         return visited;
