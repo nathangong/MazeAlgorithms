@@ -1,17 +1,18 @@
 package main.util;
 
-import static main.util.Direction.*;
-
 import java.awt.*;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import static main.util.Direction.*;
+
 public class Cell {
-    private Map<Direction, Boolean> walls;
-    private int i, j;
-    private List<Cell> connectedCells;
+    private final Map<Direction, Boolean> walls;
+    private final int i;
+    private final int j;
+    private final List<Cell> connectedCells;
     private boolean visited;
     private Color color;
 

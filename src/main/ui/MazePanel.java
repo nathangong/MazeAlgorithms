@@ -1,7 +1,5 @@
 package main.ui;
 
-import static main.util.Direction.*;
-
 import main.algs.generation.IterativeDFS;
 import main.util.Cell;
 import main.util.Constants;
@@ -9,6 +7,8 @@ import main.util.Maze;
 
 import javax.swing.*;
 import java.awt.*;
+
+import static main.util.Direction.*;
 
 public class MazePanel extends JPanel {
     private static MazePanel mazeInstance = null;
@@ -39,7 +39,7 @@ public class MazePanel extends JPanel {
         timer = new Timer(delay, null);
 
         setFocusable(true);
-        setPreferredSize(new Dimension(Constants.CELLS*Constants.CELL_LENGTH, Constants.CELLS*Constants.CELL_LENGTH));
+        setPreferredSize(new Dimension(Constants.CELLS * Constants.CELL_LENGTH, Constants.CELLS * Constants.CELL_LENGTH));
     }
 
     public void generate() {
@@ -75,7 +75,7 @@ public class MazePanel extends JPanel {
                 Cell cell = maze.getCell(i, j);
 
                 g.setColor(cell.getColor());
-                g.fillRect(j*Constants.CELL_LENGTH, i*Constants.CELL_LENGTH, Constants.CELL_LENGTH, Constants.CELL_LENGTH);
+                g.fillRect(j * Constants.CELL_LENGTH, i * Constants.CELL_LENGTH, Constants.CELL_LENGTH, Constants.CELL_LENGTH);
 
                 g.setColor(Color.black);
                 if (cell.getWall(TOP)) {

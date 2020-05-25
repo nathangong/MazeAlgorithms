@@ -1,7 +1,7 @@
 package main.algs.generation;
 
-import main.util.Cell;
 import main.ui.MazePanel;
+import main.util.Cell;
 import main.util.Constants;
 import main.util.Maze;
 import main.util.TraversalPosition;
@@ -26,15 +26,13 @@ public class IterativeDFS {
             if (stack.isEmpty()) {
                 if (!history.isEmpty()) {
                     pos = history.pop();
-                }
-                else {
+                } else {
                     mazePanel.repaint();
                     timer.stop();
                     mazePanel.setProgress(false);
                     return;
                 }
-            }
-            else {
+            } else {
                 pos = stack.pop();
             }
             if (pos.getI() < 0 || pos.getI() >= Constants.CELLS || pos.getJ() < 0 || pos.getJ() >= Constants.CELLS) {
@@ -48,13 +46,12 @@ public class IterativeDFS {
                 if (mod.get() % 25 == 0) {
                     mazePanel.repaint();
                 }
-            }
-            else {
+            } else {
                 mazePanel.repaint();
             }
             List<Cell> neighbors = maze.getNeighbors(pos.getI(), pos.getJ());
 
-            int randomIndex = (int)(Math.random()*neighbors.size());
+            int randomIndex = (int) (Math.random() * neighbors.size());
             if (neighbors.size() > 0) {
                 history.add(new TraversalPosition(pos.getI(), pos.getJ(), null));
                 stack.push(new TraversalPosition(neighbors.get(randomIndex).getI(), neighbors.get(randomIndex).getJ(), pos));

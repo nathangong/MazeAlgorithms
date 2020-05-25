@@ -24,21 +24,21 @@ public class Maze {
     public List<Cell> getNeighbors(int i, int j) {
         List<Cell> neighbors = new ArrayList<>();
 
-        Cell top = i-1 < 0 ? null : cells[i-1][j];
-        Cell right = j+1 >= Constants.CELLS ? null : cells[i][j+1];
-        Cell bottom = i+1 >= Constants.CELLS ? null : cells[i+1][j];
-        Cell left = j-1 < 0 ? null : cells[i][j-1];
+        Cell top = i - 1 < 0 ? null : cells[i - 1][j];
+        Cell right = j + 1 >= Constants.CELLS ? null : cells[i][j + 1];
+        Cell bottom = i + 1 >= Constants.CELLS ? null : cells[i + 1][j];
+        Cell left = j - 1 < 0 ? null : cells[i][j - 1];
 
-        if (top != null && !top.getVisited()){
+        if (top != null && !top.getVisited()) {
             neighbors.add(top);
         }
-        if (right != null && !right.getVisited()){
+        if (right != null && !right.getVisited()) {
             neighbors.add(right);
         }
-        if (bottom != null && !bottom.getVisited()){
+        if (bottom != null && !bottom.getVisited()) {
             neighbors.add(bottom);
         }
-        if (left != null && !left.getVisited()){
+        if (left != null && !left.getVisited()) {
             neighbors.add(left);
         }
 

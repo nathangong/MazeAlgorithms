@@ -1,8 +1,9 @@
 package main.util;
 
 public class TraversalPosition {
-    private int i, j;
-    private TraversalPosition prevPosition;
+    private final int i;
+    private final int j;
+    private final TraversalPosition prevPosition;
 
     public TraversalPosition(int i, int j, TraversalPosition prevPosition) {
         this.i = i;

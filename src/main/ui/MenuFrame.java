@@ -1,6 +1,6 @@
 package main.ui;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class MenuFrame extends JFrame {
     public MenuFrame() {
