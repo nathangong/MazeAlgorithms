@@ -25,6 +25,7 @@ public class MenuPanel extends JPanel {
         delaySlider.setMinorTickSpacing(5);
         delaySlider.setPaintTicks(true);
         delaySlider.setPaintLabels(true);
+        delaySlider.setToolTipText("Sets the delay between each frame (ms)");
         delaySlider.addChangeListener(e -> MazePanel.getInstance().setDelay(delaySlider.getValue()));
         add(delaySlider);
         add(Box.createRigidArea(new Dimension(0, 10)));

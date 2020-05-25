@@ -2,6 +2,8 @@ package main.algs.generation;
 
 import main.util.Cell;
 import main.ui.MazePanel;
+import main.util.Constants;
+import main.util.Maze;
 import main.util.TraversalPosition;
 
 import javax.swing.*;
@@ -11,8 +13,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class IterativeDFS {
     public static void generate(Timer timer) {
-        MazePanel maze = MazePanel.getInstance();
-        Cell[][] cells = maze.getCells();
+        MazePanel mazePanel = MazePanel.getInstance();
+        Maze maze = MazePanel.getInstance().getMaze();
 
         Stack<TraversalPosition> stack = new Stack<>();
         Stack<TraversalPosition> history = new Stack<>();
@@ -26,29 +28,29 @@ public class IterativeDFS {
                     pos = history.pop();
                 }
                 else {
-                    maze.repaint();
+                    mazePanel.repaint();
                     timer.stop();
-                    maze.setProgress(false);
+                    mazePanel.setProgress(false);
                     return;
                 }
             }
             else {
                 pos = stack.pop();
             }
-            if (pos.getI() < 0 || pos.getI() >= cells.length || pos.getJ() < 0 || pos.getJ() >= cells.length) {
+            if (pos.getI() < 0 || pos.getI() >= Constants.CELLS || pos.getJ() < 0 || pos.getJ() >= Constants.CELLS) {
                 return;
             }
-            cells[pos.getI()][pos.getJ()].visit();
+            maze.getCell(pos.getI(), pos.getJ()).visit();
             if (pos.getPrevPosition() != null) {
-                maze.connectCells(cells[pos.getI()][pos.getJ()], cells[pos.getPrevPosition().getI()][pos.getPrevPosition().getJ()]);
+                maze.connectCells(pos.getI(), pos.getJ(), pos.getPrevPosition().getI(), pos.getPrevPosition().getJ());
             }
             if (timer.getDelay() == 0) {
                 if (mod.get() % 25 == 0) {
-                    maze.repaint();
+                    mazePanel.repaint();
                 }
             }
             else {
-                maze.repaint();
+                mazePanel.repaint();
             }
             List<Cell> neighbors = maze.getNeighbors(pos.getI(), pos.getJ());
 
