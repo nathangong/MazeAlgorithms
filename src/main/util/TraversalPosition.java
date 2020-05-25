@@ -22,10 +22,8 @@ public class TraversalPosition {
         return j;
     }
 
-    public void updateSuccess(boolean success) {
-        if (success) {
-            isSuccessful = true;
-        }
+    public void setSuccessful(boolean val) {
+        isSuccessful = val;
     }
 
     public boolean isSuccessful() {

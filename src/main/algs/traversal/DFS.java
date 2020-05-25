@@ -45,16 +45,28 @@ public class DFS {
             }
 
             List<Cell> connected = maze.getCell(pos.getI(), pos.getJ()).getConnectedCells();
+            boolean successful = false;
             for (int i = 0; i < connected.size(); i++) {
                 Cell cell = connected.get(i);
                 if (!cell.getTraversed()) {
-                    if (i == connected.size()-1) {
+                    if (!successful) {
                         stack.push(new TraversalPosition(cell.getI(), cell.getJ(), pos, true));
                     }
                     else {
                         stack.push(new TraversalPosition(cell.getI(), cell.getJ(), pos, false));
                     }
+                    successful = true;
                 }
+            }
+
+            if (!successful) {
+                pos.setSuccessful(false);
+                TraversalPosition curr = pos;
+                while(curr.isLastChild()) {
+                    maze.getCell(curr.getI(), curr.getJ()).setTraversed(false);
+                    curr = curr.getParent();
+                }
+                maze.getCell(curr.getI(), curr.getJ()).setTraversed(false);
             }
             mod.incrementAndGet();
         });
