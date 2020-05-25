@@ -19,7 +19,7 @@ public class Cell {
     public Cell(int i, int j) {
         this.i = i;
         this.j = j;
-        this.connectedCells = new ArrayList<Cell>();
+        this.connectedCells = new ArrayList<>();
         this.color = Color.black;
         this.visited = false;
 
@@ -59,14 +59,13 @@ public class Cell {
         color = Color.white;
     }
 
-    public void setTraversed(boolean val) {
-        traversed = val;
-    }
-
     public boolean getTraversed() {
         return traversed;
     }
 
+    public void setTraversed(boolean val) {
+        traversed = val;
+    }
 
     public boolean getVisited() {
         return visited;

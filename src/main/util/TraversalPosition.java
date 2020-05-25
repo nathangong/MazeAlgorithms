@@ -4,8 +4,8 @@ public class TraversalPosition {
     private final int i;
     private final int j;
     private final TraversalPosition parent;
-    private boolean isSuccessful;
     private final boolean isLastChild;
+    private boolean isSuccessful;
 
     public TraversalPosition(int i, int j, TraversalPosition parent, boolean isLastChild) {
         this.i = i;
@@ -24,10 +24,6 @@ public class TraversalPosition {
 
     public void setSuccessful(boolean val) {
         isSuccessful = val;
-    }
-
-    public boolean isSuccessful() {
-        return isSuccessful;
     }
 
     public TraversalPosition getParent() {

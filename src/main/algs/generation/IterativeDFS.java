@@ -3,8 +3,8 @@ package main.algs.generation;
 import main.ui.MazePanel;
 import main.util.Cell;
 import main.util.Constants;
-import main.util.Maze;
 import main.util.GenerationPosition;
+import main.util.Maze;
 
 import javax.swing.*;
 import java.util.List;
