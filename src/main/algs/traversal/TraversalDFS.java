@@ -4,33 +4,35 @@ import main.ui.MazePanel;
 import main.util.Cell;
 import main.util.Constants;
 import main.util.Maze;
-import main.util.TraversalPosition;
+import main.position.DFSTraversalPosition;
 
 import javax.swing.*;
 import java.util.List;
 import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class DFS {
+public class TraversalDFS {
     public static void traverse(Timer timer) {
         MazePanel mazePanel = MazePanel.getInstance();
         Maze maze = MazePanel.getInstance().getMaze();
 
-        Stack<TraversalPosition> stack = new Stack<>();
+        Stack<DFSTraversalPosition> stack = new Stack<>();
 
-        stack.add(new TraversalPosition(0, 0, null, true));
+        stack.add(new DFSTraversalPosition(0, 0, null, true));
 
         AtomicInteger mod = new AtomicInteger();
         timer.addActionListener(evt -> {
-            TraversalPosition pos = stack.pop();
+            DFSTraversalPosition pos = stack.pop();
 
             maze.getCell(pos.getI(), pos.getJ()).setTraversed(true);
             if (pos.getI() == Constants.CELLS - 1 && pos.getJ() == Constants.CELLS - 1) {
                 mazePanel.repaint();
                 timer.stop();
                 mazePanel.setProgress(false);
+                mazePanel.setTraversed(true);
                 return;
             }
+
             if (timer.getDelay() == 0) {
                 if (mod.get() % 25 == 0) {
                     mazePanel.repaint();
@@ -44,17 +46,16 @@ public class DFS {
             for (Cell cell : connected) {
                 if (!cell.getTraversed()) {
                     if (!successful) {
-                        stack.push(new TraversalPosition(cell.getI(), cell.getJ(), pos, true));
+                        stack.push(new DFSTraversalPosition(cell.getI(), cell.getJ(), pos, true));
                     } else {
-                        stack.push(new TraversalPosition(cell.getI(), cell.getJ(), pos, false));
+                        stack.push(new DFSTraversalPosition(cell.getI(), cell.getJ(), pos, false));
                     }
                     successful = true;
                 }
             }
 
             if (!successful) {
-                pos.setSuccessful(false);
-                TraversalPosition curr = pos;
+                DFSTraversalPosition curr = pos;
                 while (curr.isLastChild()) {
                     maze.getCell(curr.getI(), curr.getJ()).setTraversed(false);
                     curr = curr.getParent();

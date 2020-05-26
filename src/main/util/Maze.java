@@ -7,6 +7,8 @@ import static main.util.Direction.*;
 
 public class Maze {
     Cell[][] cells;
+    private boolean generated;
+    private boolean traversed;
 
     public Maze() {
         cells = new Cell[Constants.CELLS][Constants.CELLS];
@@ -15,6 +17,8 @@ public class Maze {
                 cells[i][j] = new Cell(i, j);
             }
         }
+        generated = false;
+        traversed = false;
     }
 
     public Cell getCell(int i, int j) {
@@ -69,5 +73,21 @@ public class Maze {
             c1.removeWall(BOTTOM);
             c2.removeWall(TOP);
         }
+    }
+
+    public void setGenerated(boolean val) {
+        generated = val;
+    }
+
+    public boolean isGenerated() {
+        return generated;
+    }
+
+    public void setTraversed(boolean val) {
+        traversed = true;
+    }
+
+    public boolean getTraversed() {
+        return traversed;
     }
 }

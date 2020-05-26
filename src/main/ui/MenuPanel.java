@@ -10,7 +10,7 @@ public class MenuPanel extends JPanel {
     private static MenuPanel menuInstance = null;
 
     private MenuPanel() {
-        setPreferredSize(new Dimension(200, 150));
+        setPreferredSize(new Dimension(200, 190));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         add(Box.createRigidArea(new Dimension(0, 10)));
@@ -36,16 +36,16 @@ public class MenuPanel extends JPanel {
         add(generateButton);
         add(Box.createRigidArea(new Dimension(0, 10)));
 
-        JButton clearButton = new JButton("Clear Maze");
-        clearButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        clearButton.addActionListener((ActionEvent event) -> MazePanel.getInstance().clear());
-        add(clearButton);
-        add(Box.createRigidArea(new Dimension(0, 10)));
-
         JButton traverseButton = new JButton("Traverse Maze");
         traverseButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         traverseButton.addActionListener((ActionEvent event) -> MazePanel.getInstance().traverse());
         add(traverseButton);
+        add(Box.createRigidArea(new Dimension(0, 10)));
+
+        JButton clearButton = new JButton("Clear Maze");
+        clearButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        clearButton.addActionListener((ActionEvent event) -> MazePanel.getInstance().clear());
+        add(clearButton);
     }
 
     public static MenuPanel getInstance() {

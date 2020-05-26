@@ -3,7 +3,7 @@ package main.algs.generation;
 import main.ui.MazePanel;
 import main.util.Cell;
 import main.util.Constants;
-import main.util.GenerationPosition;
+import main.position.GenerationPosition;
 import main.util.Maze;
 
 import javax.swing.*;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class IterativeDFS {
+public class GenerationDFS {
     public static void generate(Timer timer) {
         MazePanel mazePanel = MazePanel.getInstance();
         Maze maze = MazePanel.getInstance().getMaze();

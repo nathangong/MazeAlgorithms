@@ -1,7 +1,7 @@
 package main.ui;
 
-import main.algs.generation.IterativeDFS;
-import main.algs.traversal.DFS;
+import main.algs.generation.GenerationDFS;
+import main.algs.traversal.TraversalDFS;
 import main.util.Cell;
 import main.util.Constants;
 import main.util.Maze;
@@ -17,7 +17,6 @@ public class MazePanel extends JPanel {
     private Maze maze;
     private int delay = Constants.INITIAL_DELAY;
     private boolean inProgress = false;
-    private boolean generated;
     private Timer timer;
 
     private MazePanel() {
@@ -39,7 +38,6 @@ public class MazePanel extends JPanel {
     private void initPanel() {
         maze = new Maze();
         refreshTimer();
-        generated = false;
 
         setFocusable(true);
         setPreferredSize(new Dimension(Constants.CELLS * Constants.CELL_LENGTH, Constants.CELLS * Constants.CELL_LENGTH));
@@ -53,15 +51,15 @@ public class MazePanel extends JPanel {
         refreshTimer();
         if (!inProgress) {
             inProgress = true;
-            IterativeDFS.generate(timer);
+            GenerationDFS.generate(timer);
         }
     }
 
     public void traverse() {
         refreshTimer();
-        if (generated && !inProgress) {
+        if (maze.isGenerated() && !maze.getTraversed() && !inProgress) {
             inProgress = true;
-            DFS.traverse(timer);
+            TraversalDFS.traverse(timer);
         }
     }
 
@@ -76,7 +74,11 @@ public class MazePanel extends JPanel {
     }
 
     public void setGenerated(boolean val) {
-        generated = val;
+        maze.setGenerated(val);
+    }
+
+    public void setTraversed(boolean val) {
+        maze.setTraversed(val);
     }
 
     public Maze getMaze() {
