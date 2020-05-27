@@ -13,15 +13,16 @@ public class Cell {
     private final int i;
     private final int j;
     private final List<Cell> connectedCells;
-    private boolean visited, traversed;
+    private boolean visited, finalized, traversed;
     private Color color;
 
     public Cell(int i, int j) {
         this.i = i;
         this.j = j;
         this.connectedCells = new ArrayList<>();
-        this.color = Color.black;
+        this.color = Color.gray;
         this.visited = false;
+        this.finalized = false;
 
         walls = new HashMap<>();
         walls.put(TOP, true);
@@ -56,6 +57,11 @@ public class Cell {
 
     public void visit() {
         visited = true;
+        color = Color.blue;
+    }
+
+    public void finalize() {
+        finalized = true;
         color = Color.white;
     }
 

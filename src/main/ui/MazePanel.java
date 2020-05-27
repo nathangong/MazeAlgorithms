@@ -93,7 +93,6 @@ public class MazePanel extends JPanel {
         super.paintComponent(g);
 
         g.setColor(Color.yellow);
-
         g.setColor(Color.black);
         for (int i = 0; i < CELLS; i++) {
             for (int j = 0; j < CELLS; j++) {

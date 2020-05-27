@@ -40,7 +40,14 @@ public class GenerationDFS {
             if (pos.getI() < 0 || pos.getI() >= CELLS || pos.getJ() < 0 || pos.getJ() >= CELLS) {
                 return;
             }
-            maze.getCell(pos.getI(), pos.getJ()).visit();
+            if (!maze.getCell(pos.getI(), pos.getJ()).getVisited()) {
+                maze.getCell(pos.getI(), pos.getJ()).visit();
+                history.add(new GenerationPosition(pos.getI(), pos.getJ(), null));
+            }
+            else {
+                maze.getCell(pos.getI(), pos.getJ()).finalize();
+            }
+
             if (pos.getPrevPosition() != null) {
                 maze.connectCells(pos.getI(), pos.getJ(), pos.getPrevPosition().getI(), pos.getPrevPosition().getJ());
             }
@@ -55,7 +62,6 @@ public class GenerationDFS {
 
             int randomIndex = (int) (Math.random() * neighbors.size());
             if (neighbors.size() > 0) {
-                history.add(new GenerationPosition(pos.getI(), pos.getJ(), null));
                 stack.push(new GenerationPosition(neighbors.get(randomIndex).getI(), neighbors.get(randomIndex).getJ(), pos));
             }
             mod.incrementAndGet();
