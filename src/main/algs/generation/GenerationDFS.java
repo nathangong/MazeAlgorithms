@@ -1,15 +1,16 @@
 package main.algs.generation;
 
+import main.position.GenerationPosition;
 import main.ui.MazePanel;
 import main.util.Cell;
-import main.util.Constants;
-import main.position.GenerationPosition;
 import main.util.Maze;
 
 import javax.swing.*;
 import java.util.List;
 import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import static main.util.Constants.CELLS;
 
 public class GenerationDFS {
     public static void generate(Timer timer) {
@@ -36,7 +37,7 @@ public class GenerationDFS {
             } else {
                 pos = stack.pop();
             }
-            if (pos.getI() < 0 || pos.getI() >= Constants.CELLS || pos.getJ() < 0 || pos.getJ() >= Constants.CELLS) {
+            if (pos.getI() < 0 || pos.getI() >= CELLS || pos.getJ() < 0 || pos.getJ() >= CELLS) {
                 return;
             }
             maze.getCell(pos.getI(), pos.getJ()).visit();

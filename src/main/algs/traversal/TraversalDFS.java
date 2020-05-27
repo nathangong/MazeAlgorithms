@@ -1,15 +1,16 @@
 package main.algs.traversal;
 
+import main.position.DFSTraversalPosition;
 import main.ui.MazePanel;
 import main.util.Cell;
-import main.util.Constants;
 import main.util.Maze;
-import main.position.DFSTraversalPosition;
 
 import javax.swing.*;
 import java.util.List;
 import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
+
+import static main.util.Constants.CELLS;
 
 public class TraversalDFS {
     public static void traverse(Timer timer) {
@@ -25,7 +26,8 @@ public class TraversalDFS {
             DFSTraversalPosition pos = stack.pop();
 
             maze.getCell(pos.getI(), pos.getJ()).setTraversed(true);
-            if (pos.getI() == Constants.CELLS - 1 && pos.getJ() == Constants.CELLS - 1) {
+            maze.addTraversalPosition(pos);
+            if (pos.getI() == CELLS - 1 && pos.getJ() == CELLS - 1) {
                 mazePanel.repaint();
                 timer.stop();
                 mazePanel.setProgress(false);
@@ -58,9 +60,11 @@ public class TraversalDFS {
                 DFSTraversalPosition curr = pos;
                 while (curr.isLastChild()) {
                     maze.getCell(curr.getI(), curr.getJ()).setTraversed(false);
+                    maze.removeTraversalPosition();
                     curr = curr.getParent();
                 }
                 maze.getCell(curr.getI(), curr.getJ()).setTraversed(false);
+                maze.removeTraversalPosition();
             }
             mod.incrementAndGet();
         });

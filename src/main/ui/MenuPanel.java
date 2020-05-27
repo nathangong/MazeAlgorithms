@@ -1,10 +1,10 @@
 package main.ui;
 
-import main.util.Constants;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+
+import static main.util.Constants.INITIAL_DELAY;
 
 public class MenuPanel extends JPanel {
     private static MenuPanel menuInstance = null;
@@ -20,7 +20,7 @@ public class MenuPanel extends JPanel {
 
         JSlider delaySlider = new JSlider(0, 100);
         delaySlider.setAlignmentX(Component.CENTER_ALIGNMENT);
-        delaySlider.setValue(Constants.INITIAL_DELAY);
+        delaySlider.setValue(INITIAL_DELAY);
         delaySlider.setMajorTickSpacing(20);
         delaySlider.setMinorTickSpacing(5);
         delaySlider.setPaintTicks(true);

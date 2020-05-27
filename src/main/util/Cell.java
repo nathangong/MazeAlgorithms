@@ -59,16 +59,16 @@ public class Cell {
         color = Color.white;
     }
 
+    public boolean getVisited() {
+        return visited;
+    }
+
     public boolean getTraversed() {
         return traversed;
     }
 
     public void setTraversed(boolean val) {
         traversed = val;
-    }
-
-    public boolean getVisited() {
-        return visited;
     }
 
     public Color getColor() {

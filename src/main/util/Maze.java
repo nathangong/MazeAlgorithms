@@ -1,19 +1,23 @@
 package main.util;
 
+import main.position.Position;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import static main.util.Constants.CELLS;
 import static main.util.Direction.*;
 
 public class Maze {
-    Cell[][] cells;
+    private Cell[][] cells;
+    private ArrayList<Position> traversalPath = new ArrayList<>();
     private boolean generated;
     private boolean traversed;
 
     public Maze() {
-        cells = new Cell[Constants.CELLS][Constants.CELLS];
-        for (int i = 0; i < Constants.CELLS; i++) {
-            for (int j = 0; j < Constants.CELLS; j++) {
+        cells = new Cell[CELLS][CELLS];
+        for (int i = 0; i < CELLS; i++) {
+            for (int j = 0; j < CELLS; j++) {
                 cells[i][j] = new Cell(i, j);
             }
         }
@@ -29,8 +33,8 @@ public class Maze {
         List<Cell> neighbors = new ArrayList<>();
 
         Cell top = i - 1 < 0 ? null : cells[i - 1][j];
-        Cell right = j + 1 >= Constants.CELLS ? null : cells[i][j + 1];
-        Cell bottom = i + 1 >= Constants.CELLS ? null : cells[i + 1][j];
+        Cell right = j + 1 >= CELLS ? null : cells[i][j + 1];
+        Cell bottom = i + 1 >= CELLS ? null : cells[i + 1][j];
         Cell left = j - 1 < 0 ? null : cells[i][j - 1];
 
         if (top != null && !top.getVisited()) {
@@ -75,19 +79,31 @@ public class Maze {
         }
     }
 
-    public void setGenerated(boolean val) {
-        generated = val;
+    public void addTraversalPosition(Position pos) {
+        traversalPath.add(pos);
+    }
+
+    public void removeTraversalPosition() {
+        traversalPath.remove(traversalPath.size() - 1);
+    }
+
+    public List<Position> getTraversalPath() {
+        return traversalPath;
     }
 
     public boolean isGenerated() {
         return generated;
     }
 
-    public void setTraversed(boolean val) {
-        traversed = true;
+    public void setGenerated(boolean val) {
+        generated = val;
     }
 
     public boolean getTraversed() {
         return traversed;
+    }
+
+    public void setTraversed(boolean val) {
+        traversed = true;
     }
 }
