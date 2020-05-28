@@ -1,11 +1,13 @@
 package main.ui;
 
-import main.algs.generation.GenerationDFS;
-import main.algs.traversal.TraversalDFS;
+import main.algs.generation.DFSGeneration;
+import main.algs.traversal.BFSTraversal;
+import main.algs.traversal.DFSTraversal;
 import main.position.Position;
 import main.util.Cell;
 import main.util.Direction;
 import main.util.Maze;
+import main.util.TraversalType;
 
 import javax.swing.*;
 import java.awt.*;
@@ -54,15 +56,22 @@ public class MazePanel extends JPanel {
         refreshTimer();
         if (!inProgress) {
             inProgress = true;
-            GenerationDFS.generate(timer);
+            DFSGeneration.generate(timer);
         }
     }
 
-    public void traverse() {
+    public void traverse(TraversalType type) {
         refreshTimer();
         if (maze.isGenerated() && !maze.getTraversed() && !inProgress) {
             inProgress = true;
-            TraversalDFS.traverse(timer);
+            switch (type) {
+                case DFS:
+                    DFSTraversal.traverse(timer);
+                    break;
+                case BFS:
+                    BFSTraversal.traverse(timer);
+                    break;
+            }
         }
     }
 

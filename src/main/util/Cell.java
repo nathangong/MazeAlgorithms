@@ -73,8 +73,18 @@ public class Cell {
         return traversed;
     }
 
-    public void setTraversed(boolean val) {
-        traversed = val;
+    public void traverse() {
+        traversed = true;
+    }
+
+    public void traverse(Color color) {
+        traversed = true;
+        this.color = color;
+    }
+
+    public void leave() {
+        traversed = false;
+        color = Color.white;
     }
 
     public Color getColor() {

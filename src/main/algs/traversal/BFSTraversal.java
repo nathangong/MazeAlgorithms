@@ -1,33 +1,39 @@
 package main.algs.traversal;
 
-import main.position.DFSTraversalPosition;
+import main.position.BFSTraversalPosition;
 import main.ui.MazePanel;
 import main.util.Cell;
 import main.util.Maze;
 
 import javax.swing.*;
+import java.awt.*;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
+import java.util.Queue;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import static main.util.Constants.CELLS;
 
-public class TraversalDFS {
+public class BFSTraversal {
     public static void traverse(Timer timer) {
         MazePanel mazePanel = MazePanel.getInstance();
         Maze maze = MazePanel.getInstance().getMaze();
 
-        Stack<DFSTraversalPosition> stack = new Stack<>();
-
-        stack.add(new DFSTraversalPosition(0, 0, null, true));
+        Queue<BFSTraversalPosition> queue = new LinkedList<>();
+        queue.add(new BFSTraversalPosition(0,0, null));
 
         AtomicInteger mod = new AtomicInteger();
         timer.addActionListener(evt -> {
-            DFSTraversalPosition pos = stack.pop();
+            BFSTraversalPosition pos = queue.remove();
+            maze.getCell(pos.getI(), pos.getJ()).traverse(Color.cyan);
 
-            maze.getCell(pos.getI(), pos.getJ()).setTraversed(true);
-            maze.addTraversalPosition(pos);
             if (pos.getI() == CELLS - 1 && pos.getJ() == CELLS - 1) {
+                BFSTraversalPosition curr = pos;
+                while (curr != null) {
+                    maze.addTraversalPosition(curr);
+                    curr = curr.getParent();
+                }
+
                 mazePanel.repaint();
                 timer.stop();
                 mazePanel.setProgress(false);
@@ -44,28 +50,12 @@ public class TraversalDFS {
             }
 
             List<Cell> connected = maze.getCell(pos.getI(), pos.getJ()).getConnectedCells();
-            boolean successful = false;
             for (Cell cell : connected) {
                 if (!cell.getTraversed()) {
-                    if (!successful) {
-                        stack.push(new DFSTraversalPosition(cell.getI(), cell.getJ(), pos, true));
-                    } else {
-                        stack.push(new DFSTraversalPosition(cell.getI(), cell.getJ(), pos, false));
-                    }
-                    successful = true;
+                    queue.add(new BFSTraversalPosition(cell.getI(), cell.getJ(), pos));
                 }
             }
 
-            if (!successful) {
-                DFSTraversalPosition curr = pos;
-                while (curr.isLastChild()) {
-                    maze.getCell(curr.getI(), curr.getJ()).setTraversed(false);
-                    maze.removeTraversalPosition();
-                    curr = curr.getParent();
-                }
-                maze.getCell(curr.getI(), curr.getJ()).setTraversed(false);
-                maze.removeTraversalPosition();
-            }
             mod.incrementAndGet();
         });
         timer.start();

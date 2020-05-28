@@ -12,7 +12,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static main.util.Constants.CELLS;
 
-public class GenerationDFS {
+public class DFSGeneration {
     public static void generate(Timer timer) {
         MazePanel mazePanel = MazePanel.getInstance();
         Maze maze = MazePanel.getInstance().getMaze();

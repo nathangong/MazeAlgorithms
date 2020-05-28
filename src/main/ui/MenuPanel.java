@@ -1,5 +1,7 @@
 package main.ui;
 
+import main.util.TraversalType;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,7 +12,7 @@ public class MenuPanel extends JPanel {
     private static MenuPanel menuInstance = null;
 
     private MenuPanel() {
-        setPreferredSize(new Dimension(200, 190));
+        setPreferredSize(new Dimension(200, 240));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         add(Box.createRigidArea(new Dimension(0, 10)));
@@ -36,10 +38,16 @@ public class MenuPanel extends JPanel {
         add(generateButton);
         add(Box.createRigidArea(new Dimension(0, 10)));
 
-        JButton traverseButton = new JButton("Traverse Maze");
-        traverseButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        traverseButton.addActionListener((ActionEvent event) -> MazePanel.getInstance().traverse());
-        add(traverseButton);
+        JButton dfsTraverseButton = new JButton("Traverse Maze (DFS)");
+        dfsTraverseButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        dfsTraverseButton.addActionListener((ActionEvent event) -> MazePanel.getInstance().traverse(TraversalType.DFS));
+        add(dfsTraverseButton);
+        add(Box.createRigidArea(new Dimension(0, 10)));
+
+        JButton bfsTraverseButton = new JButton("Traverse Maze (BFS)");
+        bfsTraverseButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        bfsTraverseButton.addActionListener((ActionEvent event) -> MazePanel.getInstance().traverse(TraversalType.BFS));
+        add(bfsTraverseButton);
         add(Box.createRigidArea(new Dimension(0, 10)));
 
         JButton clearButton = new JButton("Clear Maze");
