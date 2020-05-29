@@ -12,7 +12,7 @@ public class MenuPanel extends JPanel {
     private static MenuPanel menuInstance = null;
 
     private MenuPanel() {
-        setPreferredSize(new Dimension(200, 240));
+        setPreferredSize(new Dimension(200, 300));
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         add(Box.createRigidArea(new Dimension(0, 10)));
@@ -48,6 +48,12 @@ public class MenuPanel extends JPanel {
         bfsTraverseButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         bfsTraverseButton.addActionListener((ActionEvent event) -> MazePanel.getInstance().traverse(TraversalType.BFS));
         add(bfsTraverseButton);
+        add(Box.createRigidArea(new Dimension(0, 10)));
+
+        JButton alphaStarButton = new JButton("Traverse Maze (A*)");
+        alphaStarButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        alphaStarButton.addActionListener((ActionEvent event) -> MazePanel.getInstance().traverse(TraversalType.ALPHA_STAR));
+        add(alphaStarButton);
         add(Box.createRigidArea(new Dimension(0, 10)));
 
         JButton clearButton = new JButton("Clear Maze");

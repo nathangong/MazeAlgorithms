@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static main.util.Constants.CELLS;
+import static main.util.Constants.*;
 
 public class DFSGeneration {
     public static void generate(Timer timer) {
@@ -37,7 +37,7 @@ public class DFSGeneration {
             } else {
                 pos = stack.pop();
             }
-            if (pos.getI() < 0 || pos.getI() >= CELLS || pos.getJ() < 0 || pos.getJ() >= CELLS) {
+            if (pos.getI() < 0 || pos.getI() >= ROWS || pos.getJ() < 0 || pos.getJ() >= COLUMNS) {
                 return;
             }
             if (!maze.getCell(pos.getI(), pos.getJ()).getVisited()) {

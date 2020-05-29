@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static main.util.Constants.CELLS;
+import static main.util.Constants.*;
 
 public class DFSTraversal {
     public static void traverse(Timer timer) {
@@ -26,11 +26,11 @@ public class DFSTraversal {
 
             maze.getCell(pos.getI(), pos.getJ()).traverse();
             maze.addTraversalPosition(pos);
-            if (pos.getI() == CELLS - 1 && pos.getJ() == CELLS - 1) {
+            if (pos.getI() == ROWS - 1 && pos.getJ() == COLUMNS - 1) {
                 mazePanel.repaint();
                 timer.stop();
                 mazePanel.setProgress(false);
-                mazePanel.setTraversed(true);
+                mazePanel.setTraversed();
                 return;
             }
 

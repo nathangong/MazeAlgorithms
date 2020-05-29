@@ -5,8 +5,8 @@ import main.util.Direction;
 import static main.util.Direction.*;
 
 public class Position {
-    private final int i;
-    private final int j;
+    protected final int i;
+    protected final int j;
 
     public Position(int i, int j) {
         this.i = i;

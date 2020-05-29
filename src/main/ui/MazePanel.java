@@ -1,6 +1,7 @@
 package main.ui;
 
 import main.algs.generation.DFSGeneration;
+import main.algs.traversal.AlphaStar;
 import main.algs.traversal.BFSTraversal;
 import main.algs.traversal.DFSTraversal;
 import main.position.Position;
@@ -45,7 +46,7 @@ public class MazePanel extends JPanel {
         refreshTimer();
 
         setFocusable(true);
-        setPreferredSize(new Dimension(CELLS * CELL_LENGTH, CELLS * CELL_LENGTH));
+        setPreferredSize(new Dimension(COLUMNS * CELL_LENGTH, ROWS * CELL_LENGTH));
     }
 
     private void refreshTimer() {
@@ -53,8 +54,8 @@ public class MazePanel extends JPanel {
     }
 
     public void generate() {
-        refreshTimer();
-        if (!inProgress) {
+        if (!inProgress && !maze.isGenerated()) {
+            refreshTimer();
             inProgress = true;
             DFSGeneration.generate(timer);
         }
@@ -62,7 +63,11 @@ public class MazePanel extends JPanel {
 
     public void traverse(TraversalType type) {
         refreshTimer();
-        if (maze.isGenerated() && !maze.getTraversed() && !inProgress) {
+        if (maze.getTraversed()) {
+            maze.unTraverse();
+            repaint();
+        }
+        if (maze.isGenerated() && !inProgress) {
             inProgress = true;
             switch (type) {
                 case DFS:
@@ -70,6 +75,9 @@ public class MazePanel extends JPanel {
                     break;
                 case BFS:
                     BFSTraversal.traverse(timer);
+                    break;
+                case ALPHA_STAR:
+                    AlphaStar.traverse(timer);
                     break;
             }
         }
@@ -89,8 +97,8 @@ public class MazePanel extends JPanel {
         maze.setGenerated(val);
     }
 
-    public void setTraversed(boolean val) {
-        maze.setTraversed(val);
+    public void setTraversed() {
+        maze.setTraversed(true);
     }
 
     public Maze getMaze() {
@@ -103,8 +111,8 @@ public class MazePanel extends JPanel {
 
         g.setColor(Color.yellow);
         g.setColor(Color.black);
-        for (int i = 0; i < CELLS; i++) {
-            for (int j = 0; j < CELLS; j++) {
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
                 Cell cell = maze.getCell(i, j);
 
                 g.setColor(cell.getColor());

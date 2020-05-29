@@ -5,7 +5,7 @@ import main.position.Position;
 import java.util.ArrayList;
 import java.util.List;
 
-import static main.util.Constants.CELLS;
+import static main.util.Constants.*;
 import static main.util.Direction.*;
 
 public class Maze {
@@ -15,9 +15,9 @@ public class Maze {
     private boolean traversed;
 
     public Maze() {
-        cells = new Cell[CELLS][CELLS];
-        for (int i = 0; i < CELLS; i++) {
-            for (int j = 0; j < CELLS; j++) {
+        cells = new Cell[ROWS][COLUMNS];
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
                 cells[i][j] = new Cell(i, j);
             }
         }
@@ -33,8 +33,8 @@ public class Maze {
         List<Cell> neighbors = new ArrayList<>();
 
         Cell top = i - 1 < 0 ? null : cells[i - 1][j];
-        Cell right = j + 1 >= CELLS ? null : cells[i][j + 1];
-        Cell bottom = i + 1 >= CELLS ? null : cells[i + 1][j];
+        Cell right = j + 1 >= COLUMNS ? null : cells[i][j + 1];
+        Cell bottom = i + 1 >= ROWS ? null : cells[i + 1][j];
         Cell left = j - 1 < 0 ? null : cells[i][j - 1];
 
         if (top != null && !top.getVisited()) {
@@ -105,5 +105,16 @@ public class Maze {
 
     public void setTraversed(boolean val) {
         traversed = true;
+    }
+
+    public void unTraverse() {
+        traversed = false;
+        traversalPath.clear();
+
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
+                cells[i][j].leave();
+            }
+        }
     }
 }
