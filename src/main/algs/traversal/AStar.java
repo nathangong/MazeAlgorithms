@@ -1,6 +1,6 @@
 package main.algs.traversal;
 
-import main.position.AlphaStarPosition;
+import main.position.AStarPosition;
 import main.ui.MazePanel;
 import main.util.Cell;
 import main.util.Maze;
@@ -12,21 +12,21 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static main.util.Constants.*;
 
-public class AlphaStar {
+public class AStar {
     public static void traverse(Timer timer) {
         MazePanel mazePanel = MazePanel.getInstance();
         Maze maze = MazePanel.getInstance().getMaze();
 
-        PriorityQueue<AlphaStarPosition> queue = new PriorityQueue<>();
-        queue.add(new AlphaStarPosition(0,0,null));
+        PriorityQueue<AStarPosition> queue = new PriorityQueue<>();
+        queue.add(new AStarPosition(0,0,null));
 
         AtomicInteger mod = new AtomicInteger();
         timer.addActionListener(evt -> {
-            AlphaStarPosition pos = queue.remove();
+            AStarPosition pos = queue.remove();
             maze.getCell(pos.getI(), pos.getJ()).traverse(Color.cyan);
 
             if (pos.getI() == ROWS - 1 && pos.getJ() == COLUMNS - 1) {
-                AlphaStarPosition curr = pos;
+                AStarPosition curr = pos;
                 while (curr != null) {
                     maze.addTraversalPosition(curr);
                     curr = curr.getParent();
@@ -50,7 +50,7 @@ public class AlphaStar {
             java.util.List<Cell> connected = maze.getCell(pos.getI(), pos.getJ()).getConnectedCells();
             for (Cell cell : connected) {
                 if (!cell.getTraversed()) {
-                    queue.add(new AlphaStarPosition(cell.getI(), cell.getJ(), pos));
+                    queue.add(new AStarPosition(cell.getI(), cell.getJ(), pos));
                 }
             }
 

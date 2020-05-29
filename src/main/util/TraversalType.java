@@ -1,5 +1,5 @@
 package main.util;
 
 public enum TraversalType {
-    DFS, BFS, ALPHA_STAR;
+    DFS, BFS, A_STAR;
 }

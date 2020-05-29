@@ -50,10 +50,10 @@ public class MenuPanel extends JPanel {
         add(bfsTraverseButton);
         add(Box.createRigidArea(new Dimension(0, 10)));
 
-        JButton alphaStarButton = new JButton("Traverse Maze (A*)");
-        alphaStarButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        alphaStarButton.addActionListener((ActionEvent event) -> MazePanel.getInstance().traverse(TraversalType.ALPHA_STAR));
-        add(alphaStarButton);
+        JButton aStarButton = new JButton("Traverse Maze (A*)");
+        aStarButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        aStarButton.addActionListener((ActionEvent event) -> MazePanel.getInstance().traverse(TraversalType.A_STAR));
+        add(aStarButton);
         add(Box.createRigidArea(new Dimension(0, 10)));
 
         JButton clearButton = new JButton("Clear Maze");

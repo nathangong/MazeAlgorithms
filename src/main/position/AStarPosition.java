@@ -2,11 +2,11 @@ package main.position;
 
 import static main.util.Constants.*;
 
-public class AlphaStarPosition extends Position implements Comparable<AlphaStarPosition> {
-    private final AlphaStarPosition parent;
+public class AStarPosition extends Position implements Comparable<AStarPosition> {
+    private final AStarPosition parent;
     private final int prevLength;
 
-    public AlphaStarPosition(int i, int j, AlphaStarPosition parent) {
+    public AStarPosition(int i, int j, AStarPosition parent) {
         super(i, j);
 
         if (parent == null) this.prevLength = 0;
@@ -15,12 +15,12 @@ public class AlphaStarPosition extends Position implements Comparable<AlphaStarP
         this.parent = parent;
     }
 
-    public AlphaStarPosition getParent() {
+    public AStarPosition getParent() {
         return parent;
     }
 
     @Override
-    public int compareTo(AlphaStarPosition other) {
+    public int compareTo(AStarPosition other) {
         return (prevLength + ROWS - i + COLUMNS - j) - (other.prevLength + ROWS - other.i + COLUMNS - other.j);
     }
 }

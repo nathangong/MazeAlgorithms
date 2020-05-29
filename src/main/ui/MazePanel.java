@@ -1,7 +1,7 @@
 package main.ui;
 
 import main.algs.generation.DFSGeneration;
-import main.algs.traversal.AlphaStar;
+import main.algs.traversal.AStar;
 import main.algs.traversal.BFSTraversal;
 import main.algs.traversal.DFSTraversal;
 import main.position.Position;
@@ -76,8 +76,8 @@ public class MazePanel extends JPanel {
                 case BFS:
                     BFSTraversal.traverse(timer);
                     break;
-                case ALPHA_STAR:
-                    AlphaStar.traverse(timer);
+                case A_STAR:
+                    AStar.traverse(timer);
                     break;
             }
         }
