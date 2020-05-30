@@ -60,7 +60,7 @@ public class Cell {
         color = Color.blue;
     }
 
-    public void finalize() {
+    public void setFinalized() {
         finalized = true;
         color = Color.white;
     }
