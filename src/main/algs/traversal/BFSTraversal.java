@@ -3,10 +3,10 @@ package main.algs.traversal;
 import main.position.BFSTraversalPosition;
 import main.ui.MazePanel;
 import main.util.Cell;
+import main.util.ColorHelper;
 import main.util.Maze;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -22,10 +22,10 @@ public class BFSTraversal {
         Queue<BFSTraversalPosition> queue = new LinkedList<>();
         queue.add(new BFSTraversalPosition(0,0, null));
 
-        AtomicInteger mod = new AtomicInteger();
+        AtomicInteger iterations = new AtomicInteger();
         timer.addActionListener(evt -> {
             BFSTraversalPosition pos = queue.remove();
-            maze.getCell(pos.getI(), pos.getJ()).traverse(Color.cyan);
+            maze.getCell(pos.getI(), pos.getJ()).traverse(ColorHelper.getTraversalColor(pos));
 
             if (pos.getI() == ROWS - 1 && pos.getJ() == COLUMNS - 1) {
                 BFSTraversalPosition curr = pos;
@@ -42,7 +42,7 @@ public class BFSTraversal {
             }
 
             if (timer.getDelay() == 0) {
-                if (mod.get() % 25 == 0) {
+                if (iterations.get() % 25 == 0) {
                     mazePanel.repaint();
                 }
             } else {
@@ -56,7 +56,7 @@ public class BFSTraversal {
                 }
             }
 
-            mod.incrementAndGet();
+            iterations.incrementAndGet();
         });
         timer.start();
     }

@@ -19,7 +19,7 @@ public class DFSGeneration {
 
         Stack<GenerationPosition> stack = new Stack<>();
         Stack<GenerationPosition> history = new Stack<>();
-        stack.add(new GenerationPosition(0, 0, null));
+        stack.add(new GenerationPosition(ROWS - ROWS/2, COLUMNS - COLUMNS/2, null));
 
         AtomicInteger mod = new AtomicInteger();
         timer.addActionListener(evt -> {

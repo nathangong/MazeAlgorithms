@@ -3,10 +3,10 @@ package main.algs.traversal;
 import main.position.AStarPosition;
 import main.ui.MazePanel;
 import main.util.Cell;
+import main.util.ColorHelper;
 import main.util.Maze;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.PriorityQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -20,10 +20,11 @@ public class AStar {
         PriorityQueue<AStarPosition> queue = new PriorityQueue<>();
         queue.add(new AStarPosition(0,0,null));
 
-        AtomicInteger mod = new AtomicInteger();
+        AtomicInteger iterations = new AtomicInteger();
         timer.addActionListener(evt -> {
             AStarPosition pos = queue.remove();
-            maze.getCell(pos.getI(), pos.getJ()).traverse(Color.cyan);
+
+            maze.getCell(pos.getI(), pos.getJ()).traverse(ColorHelper.getTraversalColor(pos));
 
             if (pos.getI() == ROWS - 1 && pos.getJ() == COLUMNS - 1) {
                 AStarPosition curr = pos;
@@ -40,7 +41,7 @@ public class AStar {
             }
 
             if (timer.getDelay() == 0) {
-                if (mod.get() % 25 == 0) {
+                if (iterations.get() % 25 == 0) {
                     mazePanel.repaint();
                 }
             } else {
@@ -54,7 +55,7 @@ public class AStar {
                 }
             }
 
-            mod.incrementAndGet();
+            iterations.incrementAndGet();
         });
         timer.start();
     }

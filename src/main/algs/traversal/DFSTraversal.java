@@ -20,7 +20,7 @@ public class DFSTraversal {
         Stack<DFSTraversalPosition> stack = new Stack<>();
         stack.push(new DFSTraversalPosition(0, 0, null, true));
 
-        AtomicInteger mod = new AtomicInteger();
+        AtomicInteger iterations = new AtomicInteger();
         timer.addActionListener(evt -> {
             DFSTraversalPosition pos = stack.pop();
 
@@ -35,7 +35,7 @@ public class DFSTraversal {
             }
 
             if (timer.getDelay() == 0) {
-                if (mod.get() % 25 == 0) {
+                if (iterations.get() % 25 == 0) {
                     mazePanel.repaint();
                 }
             } else {
@@ -65,7 +65,7 @@ public class DFSTraversal {
                 maze.getCell(curr.getI(), curr.getJ()).leave();
                 maze.removeTraversalPosition();
             }
-            mod.incrementAndGet();
+            iterations.incrementAndGet();
         });
         timer.start();
     }
