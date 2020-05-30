@@ -10,7 +10,8 @@ import javax.swing.*;
 import java.util.PriorityQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static main.util.Constants.*;
+import static main.util.Constants.COLUMNS;
+import static main.util.Constants.ROWS;
 
 public class AStar {
     public static void traverse(Timer timer) {
@@ -18,7 +19,7 @@ public class AStar {
         Maze maze = MazePanel.getInstance().getMaze();
 
         PriorityQueue<AStarPosition> queue = new PriorityQueue<>();
-        queue.add(new AStarPosition(0,0,null));
+        queue.add(new AStarPosition(0, 0, null));
 
         AtomicInteger iterations = new AtomicInteger();
         timer.addActionListener(evt -> {

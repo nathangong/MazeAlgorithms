@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static main.util.Constants.*;
+import static main.util.Constants.COLUMNS;
+import static main.util.Constants.ROWS;
 
 public class DFSTraversal {
     public static void traverse(Timer timer) {

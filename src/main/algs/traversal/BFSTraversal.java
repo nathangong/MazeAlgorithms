@@ -12,7 +12,8 @@ import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static main.util.Constants.*;
+import static main.util.Constants.COLUMNS;
+import static main.util.Constants.ROWS;
 
 public class BFSTraversal {
     public static void traverse(Timer timer) {
@@ -20,7 +21,7 @@ public class BFSTraversal {
         Maze maze = MazePanel.getInstance().getMaze();
 
         Queue<BFSTraversalPosition> queue = new LinkedList<>();
-        queue.add(new BFSTraversalPosition(0,0, null));
+        queue.add(new BFSTraversalPosition(0, 0, null));
 
         AtomicInteger iterations = new AtomicInteger();
         timer.addActionListener(evt -> {

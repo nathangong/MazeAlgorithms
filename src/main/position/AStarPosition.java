@@ -1,6 +1,7 @@
 package main.position;
 
-import static main.util.Constants.*;
+import static main.util.Constants.COLUMNS;
+import static main.util.Constants.ROWS;
 
 public class AStarPosition extends Position implements Comparable<AStarPosition> {
     private final AStarPosition parent;

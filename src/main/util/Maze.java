@@ -5,12 +5,13 @@ import main.position.Position;
 import java.util.ArrayList;
 import java.util.List;
 
-import static main.util.Constants.*;
+import static main.util.Constants.COLUMNS;
+import static main.util.Constants.ROWS;
 import static main.util.Direction.*;
 
 public class Maze {
-    private Cell[][] cells;
-    private ArrayList<Position> traversalPath = new ArrayList<>();
+    private final Cell[][] cells;
+    private final ArrayList<Position> traversalPath = new ArrayList<>();
     private boolean generated;
     private boolean traversed;
 

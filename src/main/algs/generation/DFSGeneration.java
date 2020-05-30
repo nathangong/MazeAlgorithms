@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Stack;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static main.util.Constants.*;
+import static main.util.Constants.COLUMNS;
+import static main.util.Constants.ROWS;
 
 public class DFSGeneration {
     public static void generate(Timer timer) {
@@ -19,7 +20,7 @@ public class DFSGeneration {
 
         Stack<GenerationPosition> stack = new Stack<>();
         Stack<GenerationPosition> history = new Stack<>();
-        stack.add(new GenerationPosition(ROWS - ROWS/2, COLUMNS - COLUMNS/2, null));
+        stack.add(new GenerationPosition(ROWS - ROWS / 2, COLUMNS - COLUMNS / 2, null));
 
         AtomicInteger mod = new AtomicInteger();
         timer.addActionListener(evt -> {
@@ -43,9 +44,8 @@ public class DFSGeneration {
             if (!maze.getCell(pos.getI(), pos.getJ()).getVisited()) {
                 maze.getCell(pos.getI(), pos.getJ()).visit();
                 history.add(new GenerationPosition(pos.getI(), pos.getJ(), null));
-            }
-            else {
-                maze.getCell(pos.getI(), pos.getJ()).finalize();
+            } else {
+                maze.getCell(pos.getI(), pos.getJ()).setFinalized();
             }
 
             if (pos.getPrevPosition() != null) {
