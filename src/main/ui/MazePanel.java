@@ -3,6 +3,7 @@ package main.ui;
 import main.algs.generation.DFSGeneration;
 import main.algs.traversal.AStar;
 import main.algs.traversal.BFSTraversal;
+import main.algs.traversal.BestFirstSearch;
 import main.algs.traversal.DFSTraversal;
 import main.position.Position;
 import main.util.Cell;
@@ -79,6 +80,8 @@ public class MazePanel extends JPanel {
                 case A_STAR:
                     AStar.traverse(timer);
                     break;
+                case BEST_FIRST_SEARCH:
+                    BestFirstSearch.traverse(timer);
             }
         }
     }
