@@ -112,11 +112,13 @@ public class MazePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        g.setColor(Color.yellow);
         g.setColor(Color.black);
+        g.fillRect(0, 0, COLUMNS*CELL_LENGTH, ROWS*CELL_LENGTH);
+
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
                 Cell cell = maze.getCell(i, j);
+                if (cell.getColor() == Color.black) continue;
 
                 g.setColor(cell.getColor());
                 g.fillRect(j * CELL_LENGTH, i * CELL_LENGTH, CELL_LENGTH, CELL_LENGTH);

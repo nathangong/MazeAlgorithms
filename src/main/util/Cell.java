@@ -20,7 +20,7 @@ public class Cell {
         this.i = i;
         this.j = j;
         this.connectedCells = new ArrayList<>();
-        this.color = Color.gray;
+        this.color = Color.black;
         this.visited = false;
 
         walls = new HashMap<>();
@@ -56,7 +56,7 @@ public class Cell {
 
     public void visit() {
         visited = true;
-        color = Color.magenta;
+        color = Color.blue;
     }
 
     public void setFinalized() {
