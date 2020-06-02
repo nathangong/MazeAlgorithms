@@ -1,4 +1,4 @@
-# MazeGenerator
+# Mazes
 A collection of maze generation and pathfinding algorithms visualized.
 
 ## Pathfinding Algorithms Visualized
