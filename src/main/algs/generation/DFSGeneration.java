@@ -52,7 +52,7 @@ public class DFSGeneration {
                 maze.connectCells(pos.getI(), pos.getJ(), pos.getPrevPosition().getI(), pos.getPrevPosition().getJ());
             }
             if (timer.getDelay() == 0) {
-                if (mod.get() % 25 == 0) {
+                if (mod.get() % 100 == 0) {
                     mazePanel.repaint();
                 }
             } else {
