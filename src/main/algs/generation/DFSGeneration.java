@@ -38,9 +38,6 @@ public class DFSGeneration {
             } else {
                 pos = stack.pop();
             }
-            if (pos.getI() < 0 || pos.getI() >= ROWS || pos.getJ() < 0 || pos.getJ() >= COLUMNS) {
-                return;
-            }
             if (!maze.getCell(pos.getI(), pos.getJ()).getVisited()) {
                 maze.getCell(pos.getI(), pos.getJ()).visit();
                 history.add(new GenerationPosition(pos.getI(), pos.getJ(), null));

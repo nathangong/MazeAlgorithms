@@ -1,5 +1,6 @@
 package main.ui;
 
+import main.util.GenerationType;
 import main.util.TraversalType;
 
 import javax.swing.*;
@@ -39,6 +40,17 @@ public class MenuPanel extends JPanel {
         add(delaySlider);
         add(Box.createRigidArea(new Dimension(0, 10)));
 
+        JLabel generationAlgorithmLabel = new JLabel("Generation Algorithm");
+        generationAlgorithmLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        add(generationAlgorithmLabel);
+
+        String[] generationAlgorithms = {"DFS", "BFS"};
+        JComboBox<String> generationDropdown = new JComboBox<>(generationAlgorithms);
+        generationDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
+        generationDropdown.setMaximumSize(new Dimension(200, 30));
+        add(generationDropdown);
+        add(Box.createRigidArea(new Dimension(0, 10)));
+
         JLabel traversalAlgorithmLabel = new JLabel("Traversal Algorithm");
         traversalAlgorithmLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(traversalAlgorithmLabel);
@@ -52,7 +64,16 @@ public class MenuPanel extends JPanel {
 
         JButton generateButton = new JButton("Generate Maze");
         generateButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        generateButton.addActionListener((ActionEvent event) -> MazePanel.getInstance().generate());
+        generateButton.addActionListener((ActionEvent event) -> {
+            switch(generationAlgorithms[generationDropdown.getSelectedIndex()]) {
+                case "DFS":
+                    MazePanel.getInstance().generate(GenerationType.DFS);
+                    break;
+                case "BFS":
+                    MazePanel.getInstance().generate(GenerationType.BFS);
+                    break;
+            }
+        });
         add(generateButton);
         add(Box.createRigidArea(new Dimension(0, 10)));
 

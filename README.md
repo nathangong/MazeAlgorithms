@@ -1,7 +1,11 @@
 # Mazes
 A collection of maze generation and pathfinding algorithms visualized.
 
-## Pathfinding Algorithms Visualized
+##Generation Algorithms Included
+* DFS
+* BFS
+
+## Pathfinding Algorithms Included
 * DFS
 * BFS
 * A*

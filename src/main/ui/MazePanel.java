@@ -1,15 +1,13 @@
 package main.ui;
 
+import main.algs.generation.BFSGeneration;
 import main.algs.generation.DFSGeneration;
 import main.algs.traversal.AStar;
 import main.algs.traversal.BFSTraversal;
 import main.algs.traversal.BestFirstSearch;
 import main.algs.traversal.DFSTraversal;
 import main.position.Position;
-import main.util.Cell;
-import main.util.Direction;
-import main.util.Maze;
-import main.util.TraversalType;
+import main.util.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -54,11 +52,18 @@ public class MazePanel extends JPanel {
         timer = new Timer(delay, null);
     }
 
-    public void generate() {
+    public void generate(GenerationType type) {
         if (!inProgress && !maze.isGenerated()) {
             refreshTimer();
             inProgress = true;
-            DFSGeneration.generate(timer);
+            switch (type) {
+                case DFS:
+                    DFSGeneration.generate(timer);
+                    break;
+                case BFS:
+                    BFSGeneration.generate(timer);
+                    break;
+            }
         }
     }
 
