@@ -1,5 +1,5 @@
 # Mazes
-This project visualizes a collection of the most well known maze generation and pathfinding algorithms.
+This project visualizes a collection of many well known maze generation and pathfinding algorithms.
 
 ## Generation Algorithms
 * DFS
