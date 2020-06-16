@@ -2,6 +2,7 @@ package main.ui;
 
 import main.algs.generation.BFSGeneration;
 import main.algs.generation.DFSGeneration;
+import main.algs.generation.Generator;
 import main.algs.traversal.*;
 import main.position.Position;
 import main.util.*;
@@ -23,6 +24,7 @@ public class MazePanel extends JPanel {
     private boolean inProgress = false;
     private Timer timer;
     private Map<TraversalType, Traverser> traversers;
+    private Map<GenerationType, Generator> generators;
 
     private MazePanel() {
         initPanel();
@@ -41,7 +43,7 @@ public class MazePanel extends JPanel {
     }
 
     private void initPanel() {
-        initTraversers();
+        initMaps();
         maze = new Maze();
         refreshTimer();
 
@@ -49,9 +51,12 @@ public class MazePanel extends JPanel {
         setPreferredSize(new Dimension(COLUMNS * CELL_LENGTH, ROWS * CELL_LENGTH));
     }
 
-    private void initTraversers() {
-        traversers = new HashMap<>();
+    private void initMaps() {
+        generators = new HashMap<>();
+        generators.put(GenerationType.DFS, new DFSGeneration());
+        generators.put(GenerationType.BFS, new BFSGeneration());
 
+        traversers = new HashMap<>();
         traversers.put(TraversalType.DFS, new DFSTraversal());
         traversers.put(TraversalType.BFS, new BFSTraversal());
         traversers.put(TraversalType.A_STAR, new AStar());
@@ -66,14 +71,7 @@ public class MazePanel extends JPanel {
         if (!inProgress && !maze.isGenerated()) {
             refreshTimer();
             inProgress = true;
-            switch (type) {
-                case DFS:
-                    DFSGeneration.generate(timer);
-                    break;
-                case BFS:
-                    BFSGeneration.generate(timer);
-                    break;
-            }
+            generators.get(type).generate(timer);
         }
     }
 

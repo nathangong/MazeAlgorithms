@@ -1,4 +1,4 @@
-package main.algs.traversal;
+package main.algs.generation;
 
 import main.ui.MazePanel;
 import main.util.Maze;
@@ -6,7 +6,7 @@ import main.util.Maze;
 import javax.swing.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public abstract class Traverser {
+public abstract class Generator {
     protected MazePanel mazePanel;
     protected Maze maze;
     private Timer timer;
@@ -15,7 +15,7 @@ public abstract class Traverser {
 
     protected abstract void iterate();
 
-    public void traverse(Timer timer) {
+    public void generate(Timer timer) {
         this.timer = timer;
         mazePanel = MazePanel.getInstance();
         maze = MazePanel.getInstance().getMaze();
@@ -26,7 +26,7 @@ public abstract class Traverser {
         timer.addActionListener(evt -> {
             iterate();
             if (timer.getDelay() == 0) {
-                if (iterations.incrementAndGet() % 25 == 0) {
+                if (iterations.incrementAndGet() % 100 == 0) {
                     mazePanel.repaint();
                 }
             } else {
@@ -40,6 +40,6 @@ public abstract class Traverser {
         timer.stop();
         mazePanel.repaint();
         mazePanel.setProgress(false);
-        mazePanel.setTraversed();
+        mazePanel.setGenerated(true);
     }
 }
