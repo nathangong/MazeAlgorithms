@@ -2,16 +2,15 @@ package main.ui;
 
 import main.algs.generation.BFSGeneration;
 import main.algs.generation.DFSGeneration;
-import main.algs.traversal.AStar;
-import main.algs.traversal.BFSTraversal;
-import main.algs.traversal.BestFirstSearch;
-import main.algs.traversal.DFSTraversal;
+import main.algs.traversal.*;
 import main.position.Position;
 import main.util.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static main.util.Constants.*;
 import static main.util.Direction.*;
@@ -23,6 +22,7 @@ public class MazePanel extends JPanel {
     private int delay = INITIAL_DELAY;
     private boolean inProgress = false;
     private Timer timer;
+    private Map<TraversalType, Traverser> traversers;
 
     private MazePanel() {
         initPanel();
@@ -35,17 +35,27 @@ public class MazePanel extends JPanel {
         return mazeInstance;
     }
 
-    public void setDelay(int delay) {
+    void setDelay(int delay) {
         this.delay = delay;
         timer.setDelay(delay);
     }
 
     private void initPanel() {
+        initTraversers();
         maze = new Maze();
         refreshTimer();
 
         setFocusable(true);
         setPreferredSize(new Dimension(COLUMNS * CELL_LENGTH, ROWS * CELL_LENGTH));
+    }
+
+    private void initTraversers() {
+        traversers = new HashMap<>();
+
+        traversers.put(TraversalType.DFS, new DFSTraversal());
+        traversers.put(TraversalType.BFS, new BFSTraversal());
+        traversers.put(TraversalType.A_STAR, new AStar());
+        traversers.put(TraversalType.BEST_FIRST_SEARCH, new BestFirstSearch());
     }
 
     private void refreshTimer() {
@@ -75,19 +85,7 @@ public class MazePanel extends JPanel {
         }
         if (maze.isGenerated() && !inProgress) {
             inProgress = true;
-            switch (type) {
-                case DFS:
-                    DFSTraversal.traverse(timer);
-                    break;
-                case BFS:
-                    BFSTraversal.traverse(timer);
-                    break;
-                case A_STAR:
-                    AStar.traverse(timer);
-                    break;
-                case BEST_FIRST_SEARCH:
-                    BestFirstSearch.traverse(timer);
-            }
+            traversers.get(type).traverse(timer);
         }
     }
 
