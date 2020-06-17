@@ -11,7 +11,7 @@ public class AStarPosition extends Position implements Comparable<AStarPosition>
         super(i, j);
 
         if (parent == null) this.prevLength = 0;
-        else this.prevLength = parent.prevLength;
+        else this.prevLength = parent.prevLength + 1;
 
         this.parent = parent;
     }

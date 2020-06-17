@@ -10,7 +10,7 @@ import static main.util.Constants.COLUMNS;
 import static main.util.Constants.ROWS;
 
 public class AStar extends Traverser {
-    PriorityQueue<AStarPosition> queue;
+    private PriorityQueue<AStarPosition> queue;
 
     @Override
     protected void init() {

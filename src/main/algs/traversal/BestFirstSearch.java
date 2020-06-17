@@ -10,7 +10,7 @@ import static main.util.Constants.COLUMNS;
 import static main.util.Constants.ROWS;
 
 public class BestFirstSearch extends Traverser {
-    PriorityQueue<BestFirstSearchPosition> queue;
+    private PriorityQueue<BestFirstSearchPosition> queue;
 
     @Override
     protected void init() {
