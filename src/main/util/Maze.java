@@ -30,7 +30,7 @@ public class Maze {
         return cells[i][j];
     }
 
-    public List<Cell> getNeighbors(int i, int j) {
+    public List<Cell> getUnvisitedNeighbors(int i, int j) {
         List<Cell> neighbors = new ArrayList<>();
 
         Cell top = i - 1 < 0 ? null : cells[i - 1][j];

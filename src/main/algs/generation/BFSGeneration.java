@@ -12,11 +12,13 @@ import static main.util.Constants.ROWS;
 public class BFSGeneration extends Generator {
     private List<GenerationPosition> randomizedQueue;
 
+    @Override
     protected void init() {
         randomizedQueue = new ArrayList<>();
         randomizedQueue.add(new GenerationPosition(ROWS - ROWS / 2, COLUMNS - COLUMNS / 2, null));
     }
 
+    @Override
     protected void iterate() {
         if (randomizedQueue.isEmpty()) {
             stop();
@@ -30,7 +32,7 @@ public class BFSGeneration extends Generator {
             maze.connectCells(pos.getI(), pos.getJ(), pos.getPrevPosition().getI(), pos.getPrevPosition().getJ());
         }
 
-        List<Cell> neighbors = maze.getNeighbors(pos.getI(), pos.getJ());
+        List<Cell> neighbors = maze.getUnvisitedNeighbors(pos.getI(), pos.getJ());
         for (Cell cell : neighbors) {
             randomizedQueue.add(new GenerationPosition(cell.getI(), cell.getJ(), pos));
             cell.visit();

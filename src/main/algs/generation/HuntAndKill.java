@@ -9,34 +9,36 @@ import java.util.Stack;
 import static main.util.Constants.COLUMNS;
 import static main.util.Constants.ROWS;
 
-public class DFSGeneration extends Generator {
+public class HuntAndKill extends Generator {
     private Stack<GenerationPosition> stack;
-    private Stack<GenerationPosition> history;
 
     @Override
     protected void init() {
         stack = new Stack<>();
-        history = new Stack<>();
         stack.add(new GenerationPosition(ROWS - ROWS / 2, COLUMNS - COLUMNS / 2, null));
     }
 
     @Override
     protected void iterate() {
-        GenerationPosition pos;
+        GenerationPosition pos = null;
         if (stack.isEmpty()) {
-            if (!history.isEmpty()) {
-                pos = history.pop();
-            } else {
+            for (int i = 0; i < ROWS; i++) {
+                for (int j = 0; j < COLUMNS; j++) {
+                    if (maze.getCell(i, j).getVisited() && maze.getUnvisitedNeighbors(i, j).size() > 0) {
+                        pos = new GenerationPosition(i, j, null);
+                    }
+                }
+            }
+            if (pos == null) {
                 stop();
                 return;
             }
         } else {
             pos = stack.pop();
         }
+
         if (!maze.getCell(pos.getI(), pos.getJ()).getVisited()) {
             maze.getCell(pos.getI(), pos.getJ()).visit();
-            history.add(new GenerationPosition(pos.getI(), pos.getJ(), null));
-        } else {
             maze.getCell(pos.getI(), pos.getJ()).setFinalized();
         }
 

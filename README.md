@@ -4,6 +4,7 @@ This project visualizes a collection of many well known maze generation and path
 ## Generation Algorithms
 * DFS
 * BFS
+* Hunt and Kill
 
 ## Pathfinding Algorithms
 * DFS

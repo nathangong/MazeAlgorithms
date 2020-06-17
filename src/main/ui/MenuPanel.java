@@ -44,7 +44,7 @@ public class MenuPanel extends JPanel {
         generationAlgorithmLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
         add(generationAlgorithmLabel);
 
-        String[] generationAlgorithms = {"DFS", "BFS"};
+        String[] generationAlgorithms = {"DFS", "BFS", "Hunt and Kill"};
         JComboBox<String> generationDropdown = new JComboBox<>(generationAlgorithms);
         generationDropdown.setAlignmentX(Component.CENTER_ALIGNMENT);
         generationDropdown.setMaximumSize(new Dimension(200, 30));
@@ -71,6 +71,9 @@ public class MenuPanel extends JPanel {
                     break;
                 case "BFS":
                     MazePanel.getInstance().generate(GenerationType.BFS);
+                    break;
+                case "Hunt and Kill":
+                    MazePanel.getInstance().generate(GenerationType.HUNT_AND_KILL);
                     break;
             }
         });

@@ -3,6 +3,7 @@ package main.ui;
 import main.algs.generation.BFSGeneration;
 import main.algs.generation.DFSGeneration;
 import main.algs.generation.Generator;
+import main.algs.generation.HuntAndKill;
 import main.algs.traversal.*;
 import main.position.Position;
 import main.util.*;
@@ -55,6 +56,7 @@ public class MazePanel extends JPanel {
         generators = new HashMap<>();
         generators.put(GenerationType.DFS, new DFSGeneration());
         generators.put(GenerationType.BFS, new BFSGeneration());
+        generators.put(GenerationType.HUNT_AND_KILL, new HuntAndKill());
 
         traversers = new HashMap<>();
         traversers.put(TraversalType.DFS, new DFSTraversal());
