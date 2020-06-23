@@ -10,7 +10,7 @@ import static main.util.Constants.COLUMNS;
 import static main.util.Constants.ROWS;
 
 
-public class Kruksal extends Generator{
+public class Kruksal extends Generator {
     private ArrayList<Wall> walls;
 
     @Override
@@ -34,13 +34,13 @@ public class Kruksal extends Generator{
 
         int randomIndex = (int)(Math.random()*walls.size());
         Wall wall = walls.remove(randomIndex);
-        Position cell1 = new Position(wall.getI(), wall.getJ());
-        Position cell2 = cell1.getAdjacentPosition(wall.getDirection());
+        Position pos1 = new Position(wall.getI(), wall.getJ());
+        Position pos2 = pos1.getAdjacentPosition(wall.getDirection());
 
-        maze.getCell(cell1.getI(), cell1.getJ()).setFinalized();
-        maze.getCell(cell2.getI(), cell2.getJ()).setFinalized();
-        if (!maze.connected(cell1.getI(), cell1.getJ(), cell2.getI(), cell2.getJ())) {
-            maze.connectCells(cell1.getI(), cell1.getJ(), cell2.getI(), cell2.getJ());
+        maze.getCell(pos1.getI(), pos1.getJ()).setFinalized();
+        maze.getCell(pos2.getI(), pos2.getJ()).setFinalized();
+        if (!maze.connected(pos1.getI(), pos1.getJ(), pos2.getI(), pos2.getJ())) {
+            maze.connectCells(pos1.getI(), pos1.getJ(), pos2.getI(), pos2.getJ());
         }
     }
 }

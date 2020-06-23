@@ -55,6 +55,7 @@ public class MazePanel extends JPanel {
         generators.put(GenerationType.BFS, new BFSGeneration());
         generators.put(GenerationType.HUNT_AND_KILL, new HuntAndKill());
         generators.put(GenerationType.KRUKSAL, new Kruksal());
+        generators.put(GenerationType.BINARY_TREE, new BinaryTree());
 
         traversers = new HashMap<>();
         traversers.put(TraversalType.DFS, new DFSTraversal());

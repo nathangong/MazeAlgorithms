@@ -1,5 +1,5 @@
 package main.util;
 
 public enum GenerationType {
-    DFS, BFS, HUNT_AND_KILL, KRUKSAL
+    DFS, BFS, HUNT_AND_KILL, KRUKSAL, BINARY_TREE
 }

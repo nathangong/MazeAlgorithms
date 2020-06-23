@@ -6,6 +6,7 @@ This project visualizes a collection of many well known maze generation and path
 * BFS
 * Hunt and Kill
 * Kruksal's MST
+* Binary Tree
 
 ## Pathfinding Algorithms
 * DFS

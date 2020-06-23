@@ -83,6 +83,10 @@ public class Maze {
         tree.union(i1*COLUMNS + j1, i2*COLUMNS + j2);
     }
 
+    public void connectCells(Cell c1, Cell c2) {
+        connectCells(c1.getI(), c1.getJ(), c2.getI(), c2.getJ());
+    }
+
     public boolean connected(int i1, int j1, int i2, int j2) {
         return tree.connected(i1*COLUMNS + j1, i2*COLUMNS + j2);
     }
