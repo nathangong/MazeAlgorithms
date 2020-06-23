@@ -12,6 +12,7 @@ import static main.util.Direction.*;
 public class Maze {
     private final Cell[][] cells;
     private final ArrayList<Position> traversalPath = new ArrayList<>();
+    private UnionFind tree;
     private boolean generated;
     private boolean traversed;
 
@@ -22,6 +23,7 @@ public class Maze {
                 cells[i][j] = new Cell(i, j);
             }
         }
+        tree = new UnionFind(ROWS*COLUMNS);
         generated = false;
         traversed = false;
     }
@@ -78,6 +80,11 @@ public class Maze {
             c1.removeWall(BOTTOM);
             c2.removeWall(TOP);
         }
+        tree.union(i1*COLUMNS + j1, i2*COLUMNS + j2);
+    }
+
+    public boolean connected(int i1, int j1, int i2, int j2) {
+        return tree.connected(i1*COLUMNS + j1, i2*COLUMNS + j2);
     }
 
     public void addTraversalPosition(Position pos) {
@@ -109,13 +116,14 @@ public class Maze {
     }
 
     public void unTraverse() {
-        traversed = false;
-        traversalPath.clear();
-
         for (int i = 0; i < ROWS; i++) {
             for (int j = 0; j < COLUMNS; j++) {
                 cells[i][j].leave();
             }
         }
+
+        traversed = false;
+        traversalPath.clear();
+        tree = new UnionFind(ROWS*COLUMNS);
     }
 }

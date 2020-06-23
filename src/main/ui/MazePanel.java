@@ -1,9 +1,6 @@
 package main.ui;
 
-import main.algs.generation.BFSGeneration;
-import main.algs.generation.DFSGeneration;
-import main.algs.generation.Generator;
-import main.algs.generation.HuntAndKill;
+import main.algs.generation.*;
 import main.algs.traversal.*;
 import main.position.Position;
 import main.util.*;
@@ -57,6 +54,7 @@ public class MazePanel extends JPanel {
         generators.put(GenerationType.DFS, new DFSGeneration());
         generators.put(GenerationType.BFS, new BFSGeneration());
         generators.put(GenerationType.HUNT_AND_KILL, new HuntAndKill());
+        generators.put(GenerationType.KRUKSAL, new Kruksal());
 
         traversers = new HashMap<>();
         traversers.put(TraversalType.DFS, new DFSTraversal());
@@ -168,10 +166,10 @@ public class MazePanel extends JPanel {
             case BOTTOM:
                 g.fillRect(centerX - PATH_THICKNESS / 2, currPath.getI() * CELL_LENGTH, PATH_THICKNESS, (currPath.getI() + 1) * CELL_LENGTH - centerY + PATH_THICKNESS / 2);
                 break;
-            case LEFT:
+            case RIGHT:
                 g.fillRect(currPath.getJ() * CELL_LENGTH, centerY - PATH_THICKNESS / 2, (centerX + PATH_THICKNESS / 2) - currPath.getJ() * CELL_LENGTH, PATH_THICKNESS);
                 break;
-            case RIGHT:
+            case LEFT:
                 g.fillRect(centerX - PATH_THICKNESS / 2, centerY - PATH_THICKNESS / 2, (currPath.getJ() + 1) * CELL_LENGTH - (centerX - PATH_THICKNESS / 2), PATH_THICKNESS);
                 break;
         }
